@@ -20,7 +20,7 @@ scatter_plot_axis_label = 'Inflow [l/s]'
 directory = 'C:/Users/PedroAlmeida/Fluidit Oy/Grundfos - WWNC/C Work/Pre-processing/TimeSeries Analysis/Flow data'
 datatime_step = 'H'
 tseries_name = 'Jokela_inflow_2018_ps.csv'
-sep = '\t'
+sep = ' '
 date_rng = pd.date_range(start='1/1/2018', end='12/31/2018', freq='H')
 
 
@@ -32,7 +32,7 @@ date_rng = pd.date_range(start='1/1/2018', end='12/31/2018', freq='H')
 #=====================================================================================================================
 #Functions to be used
 #=====================================================================================================================
-def ChangeDates(list, olddateformat, newdateformat,isutc=False, customoffset=0):
+def ChangeDates(list, olddateformat, newdateformat, isutc=False, customoffset=0):
     #changing date format.
     Newlist = []
     if isutc==True: #change UTC+0 to the current UTC of the location provided
@@ -112,11 +112,14 @@ tseries_values_output_list = tseries.values.tolist()
 
 tseries_dates = pd.to_datetime(tseries_pd_raw_complete.index)  # get only the dates and store to an object = panda datetimes.datetimeindex
 tseries_dates_input = tseries_dates.astype(str).tolist() #convert raw dates input to python list of string elements
-tseries_dates_output = ChangeDates(tseries_dates_input, '%Y-%m-%d %H:%M:%S', "%m/%d/%Y %H:%M", False) #new dates list
 
 
+tseries_dates_output = ChangeDates(tseries_dates_input, '%Y-%m-%d %H:%M:%S', "%m/%d/%Y %H:%M", False, 1) #new dates list
 
-writefiles('Tuusula', 'Inflow', tseries_dates_output, tseries_values_output)
+
+tseries_values_output_smoothed = signal.savgol_filter(tseries_values_output, 11, 5)
+
+writefiles('Tuusula', 'Inflow', tseries_dates_output, tseries_values_output_smoothed)
 
 
 # tseries.plot()
@@ -129,12 +132,6 @@ writefiles('Tuusula', 'Inflow', tseries_dates_output, tseries_values_output)
 # f2.close()
 
 #=========================================================================================================
-
-
-
-
-tseries_values_output_smoothed = signal.savgol_filter(tseries_values_output, 11, 5)
-
 
 
 
