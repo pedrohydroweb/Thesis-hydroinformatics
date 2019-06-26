@@ -1,0 +1,205 @@
+% %% Mustervorlage für eine Studienarbeit am LS VS/BS
+
+
+
+% % % !TeX spellcheck = en_US
+% \documentclass[ twoside,openright,titlepage,numbers=noenddot,%headinclude,%1headlines,% letterpaper a4paper
+% %\documentclass[ titlepage,numbers=noenddot,%headinclude,%1headlines,% letterpaper a4paper
+%                 footinclude=true,abstractoff, % <--- obsolete, remove (todo)
+%                 %cleardoublepage=empty,
+%                 cleardoublepage=plain,
+%                 BCOR=3mm,paper=b5,fontsize=11pt,11pt,%a4paper,%
+%                 british,open=right%
+%                 ]{scrreprt}
+% \usepackage[utf8]{inputenc}
+
+% %
+% % (Re-)Add support for the deprecated font commands
+% %
+% \makeatletter
+% \DeclareOldFontCommand{\rm}{\normalfont\rmfamily}{\mathrm}
+% \DeclareOldFontCommand{\sf}{\normalfont\sffamily}{\mathsf}
+% \DeclareOldFontCommand{\tt}{\normalfont\ttfamily}{\mathtt}
+% \DeclareOldFontCommand{\bf}{\normalfont\bfseries}{\mathbf}
+% \DeclareOldFontCommand{\it}{\normalfont\itshape}{\mathit}
+% \DeclareOldFontCommand{\sl}{\normalfont\slshape}{\@nomath\sl}
+% \DeclareOldFontCommand{\sc}{\normalfont\scshape}{\@nomath\sc}
+% \makeatother
+
+% %    * New enumeration (small caps): \begin{aenumerate} \end{aenumerate}
+% %    * For margin notes: \marginpar or \graffito{}
+% %    * See classicthesis-preamble.sty for useful commands
+
+% %********************************************************************
+% % Note: Make all your adjustments in here
+% %*******************************************************
+% \usepackage[dvipsnames]{xcolor}
+
+% \usepackage[T1]{fontenc}
+% \usepackage[estonian,finnish,swedish,english]{babel}
+
+
+
+
+\documentclass[12pt, a4paper,English]{scrreprt}
+\usepackage[a4paper, width=150mm, top=25mm, bottom=25mm, bindingoffset=1mm]{geometry}
+
+
+
+%\cefoot{\pagemark}
+%\cofoot{\pagemark}
+%put the page number in the center of the page
+
+
+% \usepackage{multirow}
+% \usepackage{flafter}
+% \usepackage{multirow}
+% \usepackage{siunitx}
+% \usepackage{caption}
+% \usepackage{subcaption}
+% \usepackage{acronym}
+% \usepackage{listings}
+% \usepackage{color}
+% \usepackage{pdflscape}
+% \usepackage{longtable}
+% \usepackage{dcolumn}
+% \usepackage{relsize}
+% \usepackage{marvosym}
+% \usepackage{needspace}
+% \usepackage{pdfpages}
+% %\newcolumntype{d}[1]{D{.}{\ldot}{#1} }
+% \usepackage[numbers]{natbib}
+% %\usepackage[style=authoryear,backend=biber]{biblatex}
+% \usepackage[gen]{eurosym}
+
+% \sisetup{per=fraction}
+% \DeclareSIUnit\COe{\ce{CO2}e}
+% \DeclareSIUnit\cubicmetre{\metre\cubed}
+% \DeclareSIUnit\Euro{\euro{}}
+% \DeclareSIUnit\GBP{£}
+% \DeclareSIUnit\Hertz{Hz}
+% \DeclareSIUnit\day{d}
+% \DeclareSIUnit\byte{B}
+
+
+
+
+\usepackage{ae}
+\usepackage{aecompl}
+\usepackage[T1]{fontenc}
+% \usepackage[latin1]{inputenc}
+\usepackage[utf8]{inputenc} 
+\usepackage{amsmath}
+\usepackage{graphicx}
+\graphicspath{{images/}}
+\usepackage{amssymb}
+\usepackage [chapter]{tocbibind}
+\usepackage{latexsym}
+\usepackage{multicol}
+\usepackage[english]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage{my-preamble}
+\usepackage{svg}
+\usepackage[sorting=ynt]{biblatex}
+\addbibresource{library.bib}
+% \usepackage{classicthesis-preamble}
+% \usepackage{classicthesis}
+
+\setkomafont{chapter}{\normalfont\Large\lifamily\bfseries}
+\setkomafont{section}{\normalfont\normalsize\lifamily\bfseries}
+
+\makeatletter
+\renewcommand\chapterlinesformat[3]{%
+  \@hangfrom{#2}{\MakeUppercase{#3}}%
+}
+\makeatother
+\renewcommand\chapterlineswithprefixformat[3]{%
+  \MakeUppercase{#2#3}%
+}
+
+
+
+
+%*******************************************************
+% Font selection
+%*******************************************************
+\usepackage{libertine}
+
+%*******************************************************
+% Fine-tuning for the text area
+%*******************************************************
+\linespread{1.2} % a bit more for Libertine
+
+\usepackage[automark]{scrlayer-scrpage}
+\automark{chapter}
+\clearpairofpagestyles
+\cfoot[\pagemark]{\pagemark}
+% \lehead{\headmark}
+\rohead{\headmark}
+\pagestyle{scrheadings}
+
+
+% \usepackage{fancyhdr}
+% \pagestyle{fancy}
+% \fancyhead{}
+% \fancyhead[RO,LE]{Thesis Title}
+% \fancyfoot{}
+% \renewcommand{\headrulewidth}{0.4pt}
+% \renewcommand{\footrulewidth}{0.4pt}
+% \pagestyle{scrheadings}
+% \ofoot[]{}
+% \ifoot[]{}
+% \cfoot[\pagemark]{\pagemark}
+
+%hier könnt ihr weitere Pakete einfügen, falls ihr diese benötigt
+\typearea[current]{current}
+
+%%es folgen Definitionen für das Titelblatt
+%%An geeigneter Stelle ist der Text anzupassen
+
+\begin{document}
+
+\input{pages/firsttitlepage}
+\newpage\null\thispagestyle{empty}\newpage
+\input{pages/secondtitlepage}
+
+\input{pages/abstract}
+
+\input{pages/dedication}
+
+%%\chapter*{Declaration}
+%%I declare that...
+
+
+\input{pages/acknowledgements.tex}
+
+\tableofcontents
+
+%%Es folgt der Haupttext der Arbeit
+%%Passt die Überschriften der Kapitel entsprechend an
+%%Es empfiehlt sich evtl., jedes Kapitel in eine eigene Datei auszulagern
+%%und im Hauptdokument mittels \include einzufügen
+
+
+\chapter{Introduction}
+\input{chapters/introduction.tex}
+
+
+\chapter{Motivation}
+\input{chapters/motivation.tex}
+
+\chapter{Methodology}
+\input{chapters/methodology.tex}
+
+\chapter{Hydrological Model}
+\input{chapters/hydrologicalmodel.tex}
+
+\chapter{Hydraulic Model}
+\input{chapters/hydraulicmodel.tex}
+
+\chapter{Case Study}
+\input{chapters/casestudy.tex}
+
+\printbibliography
+
+\end{document}
