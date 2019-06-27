@@ -1,0 +1,43 @@
+
+
+
+
+Flow in the sanitary sewer network can be classified as Dry-Weather Flow (DWF) and Wet-Weather Flow (WWF). DWF can be further divided in two components: 1. Base Waste Flow (BWF): inflow of waste water coming from households, commercial and industrial sites; and 2. Groundwater Infiltration (GWI): Water from aquifers that infiltrates into the network thought defects such as pipe cracks and leaky joints(Vallabhaneni and Burgess 2007). 
+The choice of the hydrological model in this study aims the representation of RDII, which is the incremental flow into the sanitary sewer system caused by precipitation (rainfall or snowmelt). Figure 3 shows the typical characteristics of different components of sanitary sewer flow. RDII needs to be first separated from DWF when processing raw data coming from flow meters. More about the methods to separate the components are discussed on section 4.2.
+
+
+
+
+
+
+
+
+
+
+
+\begin{figure}[h]
+    \centering
+	\includegraphics[scale=0.6]{figures/RDII_flows.png}
+	\caption{Wet-weather flow components. Modified from \cite{Vallabhaneni2007}}
+	\label{fig:flowcomponents}
+\end{figure}
+
+
+\begin{figure}[h]
+    \centering
+	\includegraphics[scale=0.4]{figures/losses.png}
+	\caption{Precipitation Losses relative to a Sanitary Sewer Network}
+	\label{fig:losses}
+\end{figure}
+
+\section{Methods to Quantify Rainfall Dependent Infiltration and Inflow}
+
+
+As mentioned on section 1. There are different ways stormwater or snowmelt finds its way into the sanitary sewer lines which ideally would have only wastewater from urban developments such as households, commercial centers, factories, etc.  Sanitary sewer networks’ flow increase can be trigged by an event such as a storm or elevation of the groundwater table. From rainfall or snowmelt water flows over the soil surface and inflows to the sanitary sewer through manhole leaky covers or directly from roof-drain and foundation connections. The flow increases in the sanitary sewer due to inflow is generally observed few hours after the beginning of the storm or snowmelt. As depicted in figure X, rainfall or snowmelt   Once the water infiltrates, it moves through the soil porous with a much slower velocity due to the characteristics of the groundwater flow. Infiltration of groundwater flow which reaches the elevation of pipe. Direct roof drain connections. Groundwater infiltration from saturated soil.   
+There are many processes where. Function of the infiltration, groundwater flow, surface runoff, flow through pipe fissures.
+
+Rainfall dependent infiltration and inflow have been modeled with different methods. Bennet (1999) (Bennett et al. 1999) carried a literature review and case study of around 10 different methods for quantifying RDII. 
+The study concluded that only the regression and unit hydrograph methods are suitable when applying continuous simulation for long-term modelling. The unit hydrograph (UH) method also provided the best consistent match to storm peaks. Vallabhaneni and Burguess (2007) (Vallabhaneni and Burgess 2007) and U.S. EPA (2008) (Epa et al. n.d.) also considered sewer network rehabilitation capabilities as a factor for evaluation of the methods and suggested that regression should be used when more than 2 years of recorded flow and rainfall data is available. When no flow is available, the Constant Unit Rate RDII Method seems to be useful since it accounts for spatial characteristics of the Sewershed and information of pipe characteristics and population. Moreover, U.S. EPA (2008) study concluded that Unit Hydrograph RTK method can be useful to identify if which portion of the wet-weather flow is caused by inflow and which portion is caused by infiltration. Knowing whether RDII is more impacted by inflow or infiltration is relevant when evaluating the sanitary sewer network for rehabilitation. 
+It is important to mention that the studies also concluded that there is no RDII quantification method that can be universally applied, since their use depend on available data and characteristics of the catchment. The goal of Vallabhaneni and Burguess (2007) (Vallabhaneni and Burgess 2007) and U.S. EPA (2008) (Epa et al. n.d.) reviews were to choose the most suitable method to be first implemented in a toolbox named as Sanitary Sewer Overflow Analysis and Planning (SSOAP). 
+
+SSOAP Toolbox developed by U.S. EPA has tools to support the quantification and management of RDII in sanitary sewer networks. The RDII Analysis Tool available in the SSOAP Toolbox can identify and separate DWF and WWF, determine parameters for the set of Unit Hydrographs RTK, and perform statistical analysis of the parameters to non-measured catchments and design storms (Vallabhaneni and Burgess 2007). The SSOAP was used in this study to quantify RDII, other two relevant features for the choice were: 1. free and open source; 2. Interface with SWMM 5.

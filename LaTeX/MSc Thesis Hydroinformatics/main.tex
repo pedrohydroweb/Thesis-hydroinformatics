@@ -39,13 +39,6 @@
 % \usepackage[estonian,finnish,swedish,english]{babel}
 
 
-
-
-\documentclass[12pt, a4paper,English]{scrreprt}
-\usepackage[a4paper, width=150mm, top=25mm, bottom=25mm, bindingoffset=1mm]{geometry}
-
-
-
 %\cefoot{\pagemark}
 %\cofoot{\pagemark}
 %put the page number in the center of the page
@@ -81,7 +74,8 @@
 % \DeclareSIUnit\day{d}
 % \DeclareSIUnit\byte{B}
 
-
+\documentclass[12pt, a4paper,English]{scrreprt}
+\usepackage[a4paper, width=150mm, top=25mm, bottom=25mm, bindingoffset=1mm]{geometry}
 
 
 \usepackage{ae}
@@ -100,10 +94,17 @@
 \usepackage[utf8]{inputenc}
 \usepackage{my-preamble}
 \usepackage{svg}
-\usepackage[sorting=ynt]{biblatex}
-\addbibresource{library.bib}
+\usepackage[numbers]{natbib}
+\usepackage{setspace}
+% \usepackage[style=authoryear, sorting=ynt]{biblatex}
+% \addbibresource{library.bib}
 % \usepackage{classicthesis-preamble}
 % \usepackage{classicthesis}
+\usepackage[hyphen]{url} %break long urls in bibliography
+\usepackage{acronym}
+\usepackage{tocloft}
+\usepackage{algpseudocode}
+\usepackage[chapter]{algorithm}
 
 \setkomafont{chapter}{\normalfont\Large\lifamily\bfseries}
 \setkomafont{section}{\normalfont\normalsize\lifamily\bfseries}
@@ -163,32 +164,48 @@
 \newpage\null\thispagestyle{empty}\newpage
 \input{pages/secondtitlepage}
 
+
+\pagenumbering{roman}
+
+% \setlength\cftparskip{-0.5pt}
+% \setlength\cftbeforechapskip{0pt}
+% \tableofcontents
+% \newpage
+% \listoffigures
+% \newpage
+% \listoftables
+% \clearpage
+
+\input{pages/contents.tex}
+\input{pages/listoftables.tex}
+\input{pages/listoffigures.tex}
+
+\phantomsection\addcontentsline{toc}{chapter}{\tocEntry{Abstract}}
 \input{pages/abstract}
 
+\phantomsection\addcontentsline{toc}{chapter}{\tocEntry{Dedication}}
 \input{pages/dedication}
 
-%%\chapter*{Declaration}
-%%I declare that...
-
-
+\phantomsection\addcontentsline{toc}{chapter}{\tocEntry{Acknowledgements}}
 \input{pages/acknowledgements.tex}
 
-\tableofcontents
+\phantomsection\addcontentsline{toc}{chapter}{\tocEntry{Acronyms}}
+\input{pages/acronyms.tex}
 
-%%Es folgt der Haupttext der Arbeit
-%%Passt die Überschriften der Kapitel entsprechend an
-%%Es empfiehlt sich evtl., jedes Kapitel in eine eigene Datei auszulagern
-%%und im Hauptdokument mittels \include einzufügen
+%=========================================
+% Return page number style to Arabic
+%=========================================
+\newcounter{runningpage}
+\setcounter{runningpage}{\value{page}}
+\pagenumbering{arabic}
+\setcounter{page}{\value{runningpage}}
+%=========================================
 
 
 \chapter{Introduction}
 \input{chapters/introduction.tex}
 
 
-\chapter{Motivation}
-\input{chapters/motivation.tex}
-
-\chapter{Methodology}
 \input{chapters/methodology.tex}
 
 \chapter{Hydrological Model}
@@ -200,6 +217,10 @@
 \chapter{Case Study}
 \input{chapters/casestudy.tex}
 
-\printbibliography
+% \printbibliography
+\bibliographystyle{plainnat}
+\bibliography{library}
+
+
 
 \end{document}
