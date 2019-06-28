@@ -1,0 +1,60 @@
+
+\chapter{Case Study}
+
+\section{Jokela Town}
+
+\section{Data}
+
+    \subsection{Sanitary Sewer Inflow}
+    
+    \subsection{Precipitation}
+    
+    \subsection{Topographic Data}
+    DEM
+    LAND USE
+    URBAN AREA
+    IMPERVIOUSNESS
+    SOIL TYPE
+    
+    \subsection{Groundwater}
+
+As mentioned in the literature ((Bennett et al. 1999; Vallabhaneni and Burgess 2007), (Barden et al. 2011), and others), infiltration into the sewer lines can be caused by the seasonal elevation of groundwater table or other condition that increased soil moisture content causing a temporary saturated zone. Elevation of the groundwater table around Jokela town was assessed in this section as an attempt to identify a possible correlation with seasonal variations of the water table and the flow measurements of the town’s sanitary sewer network. 
+Information of water table levels was provided by the Finnish Environmental Institute (SYKE) through its open data service (“Finnish Environment Institute (SYKE) Open Environmental Information Systems” n.d.). Data of three observation wells were available surrounding Jokela town as depicted in Figure 4. The recording period and routines among the three stations varies considerably - from one record per month to one record per year.
+
+Picture
+
+Measurements from 2004 to 2016 from station 0118651 -located southeast from Jokela- were combined and plotted in Figure 5. Years with less than six months recorded were left out: 2007; 2008; and 2017. All the eleven years records showed an elevation on the groundwater table from March to May. 
+
+Picture
+
+Only yearly measurements were available for the closest station 0154356 located around 5km west from Jokela. The records are from different months, mostly during spring and summer. Therefore, assessment of monthly variation for the same year was not possible. However, the available data suggests slightly higher water table levels on average from January to June for the period of 1999-2017.
+
+Picture
+
+The closest observation well with data available from 2018 was 110651. Measurements from 2018 were relevant to compare with flow measurements of the same year in the sewer network. As depicted in Figure 6, the groundwater elevation period is on average from February to May. Similar pattern as observed for station 0118651. For 2018, periods of February-March and April-May were presented elevation in the groundwater table. If a similar groundwater elevation pattern also occurred for Jokela town in 2018, located 9 km away, correlation between aquifer recharge periods and higher infiltration rates into the sanitary sewer exists. 
+    
+    
+    \subsection{Weather Forecast}
+
+\section{Data Treatment}
+
+\section{Jokela Sanitary Sewer Model}
+
+    \subsection{Hydraulic Model}
+    
+    \subsection{Physically-Based: SWMM Modules}
+        
+        \subsubsection{Sewershed Delineation}
+          
+         \textit{GRASS - v.clean} to split where streams intersect.
+         \textit{QGIS - Merge Lines} To merge streams within the same layer. 
+         \textit{QGIS - Split with lines} to split the sewershed polygon where the stream crosses.
+        
+        
+        \subsubsection{Parameter Estimation}
+    
+    \subsection{Synthetic Unit Hydrograph: RTK}
+        
+        \subsubsection{Parameter Estimation}
+        
+\section{Real-Time Simulations}

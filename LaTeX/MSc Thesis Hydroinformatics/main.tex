@@ -87,7 +87,7 @@
 \usepackage{graphicx}
 \graphicspath{{images/}}
 \usepackage{amssymb}
-\usepackage [chapter]{tocbibind}
+% \usepackage [chapter]{tocbibind}
 \usepackage{latexsym}
 \usepackage{multicol}
 \usepackage[english]{babel}
@@ -108,6 +108,7 @@
 
 \setkomafont{chapter}{\normalfont\Large\lifamily\bfseries}
 \setkomafont{section}{\normalfont\normalsize\lifamily\bfseries}
+\setkomafont{subsection}{\normalfont\normalsize\lifamily}
 
 \makeatletter
 \renewcommand\chapterlinesformat[3]{%
@@ -214,8 +215,12 @@
 \chapter{Hydraulic Model}
 \input{chapters/hydraulicmodel.tex}
 
-\chapter{Case Study}
+
 \input{chapters/casestudy.tex}
+
+\input{chapters/resultsdiscussion.tex}
+
+\input{chapters/conclusion.tex}
 
 % \printbibliography
 \bibliographystyle{plainnat}
