@@ -41,6 +41,112 @@ The study concluded that only the regression and unit hydrograph methods are sui
 It is important to mention that the studies also concluded that there is no RDII quantification method that can be universally applied, since their use depend on available data and characteristics of the catchment. The goal of Vallabhaneni and Burguess (2007) (Vallabhaneni and Burgess 2007) and U.S. EPA (2008) (Epa et al. n.d.) reviews were to choose the most suitable method to be first implemented in a toolbox named as Sanitary Sewer Overflow Analysis and Planning (SSOAP). 
 
 
+
+
+TELL HERE WHY THE CHOICE OF RDII AND SWMM
+
+As described in section X. Two main reasons was to model snowmelt was the primary motivation to use SWMM modules and subcatchments in this study. and a model that could simulate the watershed behaviour throuout all the seasons of the year. 
+
+\section{Physically-Based: SWMM Modules}
+
+The use of SWMM packages in this study aimed to model four processes happening simultaneously in the watershed to simulate fast, medium and long term response observed in \ac{SSN} wet-weather flows. The four processes/SWMM modules are described here as: 1. Runoff; 2. Snowpack \& Snowmelt; 3. Infiltration; 4. Groundwater. 
+
+\subsection{Rainfall-Runoff} 
+
+\subsection{Snowpack \& Snowmelt} 
+
+\subsection{Infiltration}
+
+SWMM version 5.1 package offers the modeller five different infiltration models. The Modified Horton method \cite{akan1992,akan2003} was chosen among the options for three main reasons: 1. it is simply one of the default methods available in SWMM;  2. it has the same parameters as the well-known Horton method which parameter estimates are suggested in \citet{Rossman2016}; 3. Appears to be more accurate low intensity rainfall events than the original Horton method \cite{Rossman2016}. 
+
+The two governing equations of the method describes the infiltration capacity decay during wet periods \ref{eqn:mhortondecay} and its recovery curve during dry periods \ref{eqn:mhortonrecoveryintegrated} and an example of these two curves and how the infiltration capacity would change over time is plotted in figure \ref{fig:horton}. 
+
+\begin{figure}[h]
+    \centering
+	\includegraphics[scale=0.45]{figures/hortoncurves.png}
+	\caption{Horton infiltration capacity decay and recovery curves. Modified from \cite{Rossman2016}}
+	\label{fig:horton}
+\end{figure}
+
+\begin{equation}
+\label{eqn:mhortondecay}
+F = f_\infty \cdot t + \frac{(f_0 - f_\infty)}{k_d} \cdot (1 - e^{-k_d\cdot t})
+\end{equation}
+Where: \\
+
+\indent $F$ = cumulative infiltration capacity [ft] \\
+\indent $f_\infty$ = minimum or equilibrium value of infiltration capacity at $t = \infty$  [ft/sec] \\
+\indent $f_0$ = maximum or initial value of infiltration capacity at $t = 0$ [ft/sec] \\
+\indent $t$ = equivalent time [sec] \\
+\indent $k_d$ = decay coefficient [sec\textsuperscript{-1}] \\
+
+It is worth to mention that \ref{eqn:mhortondecay} is an integrated form of Horton's original equation. SWMM uses integrated form to consider the intensity of the rainfall event also as a function of the infiltration capacity reduction \cite{Rossman2016}. 
+
+
+\begin{equation}
+\label{eqn:mhortonrecovery}
+\frac{df_r}{dt} = kr \cdot (f_0 - f_r) 
+\end{equation}
+Where: \\
+
+\indent $f_r$ = infiltration capacity during recovery [ft] \\
+\indent $f_{r0}$ = maximum or initial value of infiltration capacity at $t = 0$ [ft/sec] \\
+\indent $k_r$ = regeneration coefficient [1/sec] \\
+\indent $t$ = time [sec] \\
+
+the infiltration capacity at time $t$ after integrating \ref{eqn:mhortonrecovery} when infiltration capacity is $f_{r0}$ is:
+
+\begin{equation}
+\label{eqn:mhortonrecoveryintegrated}
+f_r =  f_0 - (f_0 - f_{r0}) \cdot e^{-k_d \cdot t}
+\end{equation}
+    
+
+
+
+
+SWMM computation scheme first checks for wet-period (rainfall/snowmelt) or dry period to apply either of the equations \ref{eqn:mhortondecay} or \ref{eqn:mhortonrecoveryintegrated}  and compute the current infiltration capacity and the amount of water infiltrating the soil. More details of the equations and computational scheme are available in \citet{Rossman2016}.
+
+Show parameter estimation list. Four parameters
+ 
+
+Maximum infiltration rate
+Minimum infiltration rate
+Decay coefficient
+Drying Time
+
+
+\begin{table}[h]
+	\caption{Different efficiency components at various loads and rotational speeds}
+	\label{tbl:infparam}
+    \centering
+    \begin{tabular}{llll}
+        % \multicolumn{4}{l}{Modified Horton Infiltration Parameters range in SWMM}                      \\ \hline
+        \toprule
+        Parameter                      & \multicolumn{2}{r}{Typical Range} & Units      
+        \midrule
+        Maximum infiltration rate      & \multicolumn{2}{r}{8.5 - 254}     & mm/h                      \\
+        Minimum infiltration rate      & \multicolumn{2}{r}{0.254 - 120.4} & mm/h                      \\
+        Decay coefficient              & \multicolumn{2}{r}{2 - 7}         & h\textasciicircum{}-1     \\
+        Drying Time                    & \multicolumn{2}{r}{2 - 14}        & days       
+        \bottomrule
+    \end{tabular}
+\end{table}
+
+
+
+h\textsuperscript{-1}
+
+\subsection{Aquifer & Groundwater Flow} 
+ 
+choice of groundwater flow equation:
+
+
+\section{Synthetic Unit Hydrograph: RTK}
+
+
+
+
 \section{Separation of Flow Components}
 
 •	SSOAP toolbox allows the users to visually adjust RTK parameters comparing the flow measured values and the RTK hydrograph through an iterative process \cite{Vallabhaneni2007}. Using such tool make the process easier for modelers. However, even with such tools, manual calibration can be time consuming. This can limit the frequency that calibrations are done. Optimization algorithm is applied as an attempt to mimic this iterative process done manually by modelers.

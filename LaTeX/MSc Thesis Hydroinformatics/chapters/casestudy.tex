@@ -38,13 +38,58 @@ The closest observation well with data available from 2018 was 110651. Measureme
 
 \section{Data Treatment}
 
+\section{Snowmelt and Rainfall for calibration and validation}
+
+
+
+remind: Importance to use radar data and refer the literature vallabhnai conclusions of using radar and pawel nawalani that compared radar x rain gauge. 
+
+remind: put a graph of variations in precipitation and temperature to justify that more data should be assessed. 
+
+
 \section{Jokela Sanitary Sewer Model}
 
     \subsection{Hydraulic Model}
     
     \subsection{Physically-Based: SWMM Modules}
-        
-        \subsubsection{Sewershed Delineation}
+
+
+        \subsubsection{Jokela Sewershed Delineation}
+
+\texttt{\textit{Area}} is one of the parameters necessary for many SWMM modules as described in equations X, XXU,XX,XX, and table x x X of previous sections. The definition of the \texttt{\textit{Area}} parameter for \acf{SSN} is rather conceptually challenging since it is located under the surface. This is due the different components of \ac{WWF}: surface/direct flow or sub-surface/infiltration flow gradient and the area of influence of each of these two processes. Rain drop falling over a specific point on the surface. The drop can flow over the surface towards the direction of the steeper slope or infiltrate and then flow through the porous in the soil to a very different direction than . As 
+Therefore, delineating the sewershed only the \acf{DEM} rainfall-runoff
+
+The sewershed delineation is a discretization of the space domain. The area division that supplies water to to a specific point within the \ac{SSN}. When modeling natural rivers, this area is assumed as all regions where a rain drop would flow downstream following the soil surface slopes from high elevations towards the lowest parts due to gravitational force. This method, however, is not conceptually valid for \ac{SSN} once the network's slopes are not always as the terrain slopes. Therefore, \ac{SSN} has a different gradient than the surface in some parts and pumping stations are required to transport waste water towards the \acf{WWTP}. This is the reason why the space domain was discretized per pimping station in this study.
+
+
+Two reasons:
+- Terrain slope
+- Available historical flow measurements.
+
+Qgis application was chosen to perform GIS operations and delineate sewersheds due to its free open services. GRASS r.watershed. 
+
+
+Pumping stations are usually located in areas with lower surface elevation when compared to its upstream pipe network to direct the flow utilizing gravitational force and reduce energy consumption. However, differences between soil surface and network still exists in some parts of the pumping station upstream service area. 
+
+
+\begin{figure}[h]
+    \centering
+	\includegraphics[scale=0.6]{figures/burnedxfilledDEM.png}
+	\caption{Comparison of sewershed delineation using Filled and Burned DEM}
+	\label{fig:filledxburned}
+\end{figure}
+
+
+, not all parts of.
+The discretization in this study was DEM  Service area cadastral parcels.
+
+Tell other options based on the network age, size, estimated defects, material, etc. 
+
+
+Groundwater
+         
+DEM One of the first steps to model SWMMre are many ways to delineate a sewershed. The threshold level of discretization of the space domain. Each pipe section can have its own subcatchment 
+          
           
          \textit{GRASS - v.clean} to split where streams intersect.
          \textit{QGIS - Merge Lines} To merge streams within the same layer. 
