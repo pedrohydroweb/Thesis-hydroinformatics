@@ -74,7 +74,7 @@
 % \DeclareSIUnit\day{d}
 % \DeclareSIUnit\byte{B}
 
-\documentclass[12pt, a4paper,English]{scrreprt}
+\documentclass[12pt, a4paper, smallheadings, English]{scrreprt}
 \usepackage[a4paper, width=150mm, top=25mm, bottom=25mm, bindingoffset=1mm]{geometry}
 
 
@@ -100,17 +100,20 @@
 % \addbibresource{library.bib}
 % \usepackage{classicthesis-preamble}
 % \usepackage{classicthesis}
-\usepackage[hyphen]{url} %break long urls in bibliography
+\usepackage[hyphens]{url} %break long urls in bibliography
 \usepackage{acronym}
 \usepackage{tocloft}
 \usepackage{algpseudocode}
 \usepackage[chapter]{algorithm}
 \usepackage{booktabs}
 \usepackage{multirow}
+\usepackage{xspace}
+\usepackage{tocbibind}
+\usepackage{hyperref}
 
-\setkomafont{chapter}{\normalfont\Large\lifamily\bfseries}
-\setkomafont{section}{\normalfont\normalsize\lifamily\bfseries}
-\setkomafont{subsection}{\normalfont\normalsize\lifamily}
+% \setkomafont{chapter}{\normalfont\Large\lifamily\bfseries}
+% \setkomafont{section}{\normalfont\normalsize\lifamily\bfseries}
+% \setkomafont{subsection}{\normalfont\normalsize\lifamily}
 
 \makeatletter
 \renewcommand\chapterlinesformat[3]{%
@@ -158,8 +161,6 @@
 %hier könnt ihr weitere Pakete einfügen, falls ihr diese benötigt
 \typearea[current]{current}
 
-%%es folgen Definitionen für das Titelblatt
-%%An geeigneter Stelle ist der Text anzupassen
 
 \begin{document}
 
@@ -170,29 +171,21 @@
 
 \pagenumbering{roman}
 
-% \setlength\cftparskip{-0.5pt}
-% \setlength\cftbeforechapskip{0pt}
-% \tableofcontents
-% \newpage
-% \listoffigures
-% \newpage
-% \listoftables
-% \clearpage
 
 \input{pages/contents.tex}
 \input{pages/listoftables.tex}
 \input{pages/listoffigures.tex}
 
-\phantomsection\addcontentsline{toc}{chapter}{\tocEntry{Abstract}}
-\input{pages/abstract}
 
-\phantomsection\addcontentsline{toc}{chapter}{\tocEntry{Dedication}}
+\phantomsection\addcontentsline{toc}{chapter}{Abstract}
+\input{pages/abstract}
+\phantomsection\addcontentsline{toc}{chapter}{Dedication}
 \input{pages/dedication}
 
-\phantomsection\addcontentsline{toc}{chapter}{\tocEntry{Acknowledgements}}
+\phantomsection\addcontentsline{toc}{chapter}{Acknowledgements}
 \input{pages/acknowledgements.tex}
 
-\phantomsection\addcontentsline{toc}{chapter}{\tocEntry{Acronyms}}
+\phantomsection\addcontentsline{toc}{chapter}{Acronyms}
 \input{pages/acronyms.tex}
 
 %=========================================

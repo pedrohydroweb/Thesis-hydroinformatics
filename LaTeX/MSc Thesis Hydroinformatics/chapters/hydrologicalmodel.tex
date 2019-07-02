@@ -6,16 +6,7 @@ Flow in the sanitary sewer network can be classified as Dry-Weather Flow (DWF) a
 The choice of the hydrological model in this study aims the representation of RDII, which is the incremental flow into the sanitary sewer system caused by precipitation (rainfall or snowmelt). Figure 3 shows the typical characteristics of different components of sanitary sewer flow. RDII needs to be first separated from DWF when processing raw data coming from flow meters. More about the methods to separate the components are discussed on section 4.2.
 
 
-
-
-
-
-
-
-
-
-
-\begin{figure}[h]
+\begin{figure}[ht]
     \centering
 	\includegraphics[scale=0.6]{figures/RDII_flows.png}
 	\caption{Wet-weather flow components. Modified from \cite{Vallabhaneni2007}}
@@ -23,7 +14,7 @@ The choice of the hydrological model in this study aims the representation of RD
 \end{figure}
 
 
-\begin{figure}[h]
+\begin{figure}[ht]
     \centering
 	\includegraphics[scale=0.4]{figures/losses.png}
 	\caption{Precipitation Losses relative to a Sanitary Sewer Network}
@@ -55,7 +46,7 @@ The use of SWMM packages in this study aimed to model four processes happening s
 
 \subsection{Snowpack \& Snowmelt} 
 
-\subsection{Infiltration}
+\subsection{Infiltration} \label{infiltration}
 
 SWMM version 5.1 package offers the modeller five different infiltration models. The Modified Horton method \cite{akan1992,akan2003} was chosen among the options for three main reasons: 1. it is simply one of the default methods available in SWMM;  2. it has the same parameters as the well-known Horton method which parameter estimates are suggested in \citet{Rossman2016}; 3. Appears to be more accurate low intensity rainfall events than the original Horton method \cite{Rossman2016}. 
 
@@ -73,7 +64,6 @@ The two governing equations of the method describes the infiltration capacity de
 F = f_\infty \cdot t + \frac{(f_0 - f_\infty)}{k_d} \cdot (1 - e^{-k_d\cdot t})
 \end{equation}
 Where: \\
-
 \indent $F$ = cumulative infiltration capacity [ft] \\
 \indent $f_\infty$ = minimum or equilibrium value of infiltration capacity at $t = \infty$  [ft/sec] \\
 \indent $f_0$ = maximum or initial value of infiltration capacity at $t = 0$ [ft/sec] \\
@@ -101,43 +91,29 @@ the infiltration capacity at time $t$ after integrating \ref{eqn:mhortonrecovery
 f_r =  f_0 - (f_0 - f_{r0}) \cdot e^{-k_d \cdot t}
 \end{equation}
     
-
-
-
-
 SWMM computation scheme first checks for wet-period (rainfall/snowmelt) or dry period to apply either of the equations \ref{eqn:mhortondecay} or \ref{eqn:mhortonrecoveryintegrated}  and compute the current infiltration capacity and the amount of water infiltrating the soil. More details of the equations and computational scheme are available in \citet{Rossman2016}.
 
-Show parameter estimation list. Four parameters
+Table \ref{tbl:infparam} presents a rough estimate of the range of four input parameters for Horton infiltration model. The range was extracted from EPA SWMM user help. 
  
 
-Maximum infiltration rate
-Minimum infiltration rate
-Decay coefficient
-Drying Time
-
-
 \begin{table}[h]
-	\caption{Different efficiency components at various loads and rotational speeds}
-	\label{tbl:infparam}
-    \centering
-    \begin{tabular}{llll}
-        % \multicolumn{4}{l}{Modified Horton Infiltration Parameters range in SWMM}                      \\ \hline
-        \toprule
-        Parameter                      & \multicolumn{2}{r}{Typical Range} & Units      
-        \midrule
-        Maximum infiltration rate      & \multicolumn{2}{r}{8.5 - 254}     & mm/h                      \\
-        Minimum infiltration rate      & \multicolumn{2}{r}{0.254 - 120.4} & mm/h                      \\
-        Decay coefficient              & \multicolumn{2}{r}{2 - 7}         & h\textasciicircum{}-1     \\
-        Drying Time                    & \multicolumn{2}{r}{2 - 14}        & days       
-        \bottomrule
-    \end{tabular}
+\caption{Modified Horton infiltration parameters range\cite{Rossman2016}}
+\label{tbl:infparam}
+\centering
+\begin{tabular}{@{}lcll@{}}
+\toprule
+\textbf{Parameter}        & \multicolumn{2}{c}{\textbf{Typical Range}} & \textbf{Units}        \\ \midrule
+Maximum infiltration rate & \multicolumn{2}{c}{8.5 - 254}              & mm/h                  \\
+Minimum infiltration rate & \multicolumn{2}{c}{0.254 - 120.4}          & mm/h                  \\
+Decay coefficient         & \multicolumn{2}{c}{2 - 7}                  & h\textsuperscript{-1}\\
+Drying Time               & \multicolumn{2}{c}{2 - 14}                 & days                  \\ \bottomrule
+\end{tabular}
 \end{table}
 
 
 
-h\textsuperscript{-1}
 
-\subsection{Aquifer & Groundwater Flow} 
+\subsection{Aquifer \& Groundwater Flow} 
  
 choice of groundwater flow equation:
 
@@ -154,7 +130,7 @@ choice of groundwater flow equation:
 SSOAP Toolbox developed by \ac{EPA} has tools to support the quantification and management of RDII in sanitary sewer networks. The RDII Analysis Tool available in the SSOAP Toolbox can identify and separate DWF and WWF, determine parameters for the set of Unit Hydrographs RTK, and perform statistical analysis of the parameters to non-measured catchments and design storms (Vallabhaneni and Burgess 2007). The SSOAP was used in this study to quantify RDII, other two relevant features for the choice were: 1. free and open source; 2. Interface with SWMM 5.
 
 
-\begin{figure}[h]
+\begin{figure}[ht]
     \centering
 	\includegraphics[scale=1.2]{figures/SSOAP_example.png}
 	\caption{Graphical visualization of sanitary sewer flow components using SSOAP Toolbox}

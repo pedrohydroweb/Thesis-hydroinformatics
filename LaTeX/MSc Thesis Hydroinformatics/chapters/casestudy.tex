@@ -14,8 +14,68 @@
     LAND USE
     URBAN AREA
     IMPERVIOUSNESS
-    SOIL TYPE
+    \subsubsection{Soil Superficial Deposits}
     
+    The soil type coverage data was fetched from \acf{GTK} \cite{gtkdata} through its open data online service and was used to estimate the three parameters of Horton infiltration (see, \ref{infiltration}). The available information was obtained as vector data containing superficial deposits of Finland with material produced between 1972-2007. GIS operations were carried using Qgis to delimit the area concerned Jokela's catchment. Coverage of superficial deposit is depicted in figure \ref{fig:supdeposits}. Mixed soil types were simplified to facilitate model's parameter estimations.\\
+    
+\begin{figure}[h]
+    \centering
+	\includegraphics[scale=0.4]{figures/Jokela_Superficial_Deposits.pdf}
+	\caption{Jokela catchment soil superficial deposits}
+	\label{fig:supdeposits}
+\end{figure}
+
+As informed in section \ref{infiltration}, there are four parameters necessary to satisfy the Modified Horton infiltration model: Initial infiltration capacity ($f_0$); Minimum infiltration capacity ($f_\infty$), decay coefficient ($k_d$), and recovery coefficient ($k_r$) that is calculated based on drying time. For simplicity, the parameters were averaged by the whole area of Jokela catchment without considering subcatchment's divisions per pumping station. Therefore, all subcatchments have the same parameters for the infiltration model. Estimation of parameters was carried as follows:
+\begin{enumerate}
+    \item Initial infiltration capacity ($f_0$): values per soil type as estimated by \citet{Rossman2016} for DRY soils multiplied by 1.2 to account for vegetation present in the catchment.
+    \item Minimum infiltration capacity ($f_\infty$): considered equal to saturated hydraulic conductivity with values estimated by \citet{Rawls1983} and available in SWMM user help.
+    \item Decay coefficient ($k_d$): set to 4 [h\textsuperscript{-1}] as suggested by \citet{Rossman2016}.
+    \item Recovery coefficient ($k_r$) in days: equation \ref{eqn:k_r} as function of minimum infiltration capacity in inches/hour.
+\end{enumerate}
+
+\begin{equation}
+\label{eqn:k_r}
+k_r = \frac{3.125}{\sqrt{f_\infty}}
+\end{equation}
+
+
+The estimation of each parameter for each soil type is depicted in table \ref{tbl:infparamest}. Area and percentage of coverage were also assessed to perform an area weighted average using equation \ref{eqn:infilaverage} to obtain one unique value of each parameter to represent the entire catchment.
+
+
+\begin{table}[h]
+\caption{Modified Horton infiltration parameter estimation}
+\label{tbl:infparamest}
+\centering
+\begin{tabular}{@{}lccccc@{}}
+\toprule
+\textbf{soil type} & \textbf{area [ha]} & \textbf{coverage [\%]} & \textbf{$f_0$} & \textbf{$f_\infty$} & \textbf{$k_r$} \\
+\midrule
+Clay               & 887.5                 & 66.0                       & 30.5          & 0.3                            & 28.8          \\
+Sand               & 267.9                 & 19.9                       & 152.4         & 117.8                          & 1.5           \\
+Rock               & 181.6                 & 13.5                       & 3.0           & 0.03                            & 90.9          \\
+Silt               & 5.9                   & 0.4                        & 91.4          & 6.5                            & 6.2           \\
+Gravel             & 1.2                   & 0.1                        & 1524.0        & 1180.0                         & 0.5           \\
+Water              & 11.5                  & 0.9                        & -             & -                              & -             \\ \midrule
+Total              & 1355.7                & 100.0                      & -             & -                              & - \\           
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{equation}
+\label{eqn:infilaverage}
+Average_{area} = \sum_{n}^{m}(Parameter_n \cdot Coverage_n \cdot 0.1)
+\end{equation}
+where: \\
+\indent $parameter$ = $f_0$, $f_\infty$ or $k_r$ \\
+\indent $n$ = soil type (excluding water) \\
+
+
+
+after applying equation \ref{eqn:infilaverage} to the estimated parameters in table \ref{tbl:infparamest} and limiting $k_r$ extrapolated value by the upper limit range of 14 days it was possible to obtain the following unique parameters for the catchment:
+
+$f_0$ = 52.2 [mm/h], $f_\infty$ = 24.6 [mm/h], $k_d$ = 4 [1/h], $k_r$ = 14 [days]
+
+
     \subsection{Groundwater}
 
 As mentioned in the literature ((Bennett et al. 1999; Vallabhaneni and Burgess 2007), (Barden et al. 2011), and others), infiltration into the sewer lines can be caused by the seasonal elevation of groundwater table or other condition that increased soil moisture content causing a temporary saturated zone. Elevation of the groundwater table around Jokela town was assessed in this section as an attempt to identify a possible correlation with seasonal variations of the water table and the flow measurements of the town’s sanitary sewer network. 
@@ -97,6 +157,12 @@ DEM One of the first steps to model SWMMre are many ways to delineate a sewershe
         
         
         \subsubsection{Parameter Estimation}
+    
+    range of parameters are presented in each subsection of \ref{hydraulicmodel} chapter. 
+    
+    table \ref has the choice of parameters for all modules. The column \textit{Source} shows the references used to estimate the parameter as well as description of the data in previous section \ref{data}.
+    
+    Table
     
     \subsection{Synthetic Unit Hydrograph: RTK}
         
