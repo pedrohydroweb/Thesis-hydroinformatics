@@ -5,10 +5,22 @@
 
 \section{Data}
 
-    \subsection{Sanitary Sewer Inflow}
+%===============================================================
+% Sanitary Sewer Inflow data
+%===============================================================
+
+    \subsection{Sanitary Sewer Inflow} \label{flowdata}
     
-    \subsection{Precipitation}
-    
+    \subsection{Meteorological Data}
+    meteorological data is presented for both historical and forecast. 
+    TELL HERE GENERAL THINGS ABOUT THE DATA THAT ARE EQUAL TO ALL SUBSUBSECTIONS I.E. THE PROVIDER, FORECAST MODEL, ETC.
+        \subsubsection{Precipitation}
+        Give characteristics of the data here, graphics and etc
+        \subsubsection{Temperature}
+        Give characteristics of the data here, graphics and etc
+        \subsubsection{Temperature}
+
+        
     \subsection{Topographic Data}
     DEM
     LAND USE
@@ -39,7 +51,7 @@ k_r = \frac{3.125}{\sqrt{f_\infty}}
 \end{equation}
 
 
-The estimation of each parameter for each soil type is depicted in table \ref{tbl:infparamest}. Area and percentage of coverage were also assessed to perform an area weighted average using equation \ref{eqn:infilaverage} to obtain one unique value of each parameter to represent the entire catchment.
+The estimation of each parameter for each soil type is depicted in table \ref{tbl:infparamest}. Area and percentage of coverage for each soil type was also calculated to spatially weight $f_0$, $f_\infty$, and $k_r$ using equation \ref{eqn:infilaverage} to obtain a unique value of each parameter to represent the entire catchment.
 
 
 \begin{table}[h]
@@ -63,20 +75,26 @@ Total              & 1355.7                & 100.0                      & -     
 
 \begin{equation}
 \label{eqn:infilaverage}
-Average_{area} = \sum_{n}^{m}(Parameter_n \cdot Coverage_n \cdot 0.1)
+Parameter = \sum_{n}^{m}(Parameter_n \cdot Coverage_n \cdot 0.1)
 \end{equation}
 where: \\
 \indent $parameter$ = $f_0$, $f_\infty$ or $k_r$ \\
 \indent $n$ = soil type (excluding water) \\
 
+after applying equation \ref{eqn:infilaverage} was applied to the estimated parameters of table \ref{tbl:infparamest}. The result of $k_r$ was set to its upper limit range since it was greater than 14 days because of the predominance of soil types with relatively low saturated hydraulic conductivity (\textit{Clay and Rock}). The following unique parameters were obtained and included to SWMM model:
+
+\begin{center}
+  $f_0$ = 52.2 [mm/h], $f_\infty$ = 24.6 [mm/h], $k_d$ = 4 [1/h], $k_r$ = 14 [days]  
+\end{center}
 
 
-after applying equation \ref{eqn:infilaverage} to the estimated parameters in table \ref{tbl:infparamest} and limiting $k_r$ extrapolated value by the upper limit range of 14 days it was possible to obtain the following unique parameters for the catchment:
-
-$f_0$ = 52.2 [mm/h], $f_\infty$ = 24.6 [mm/h], $k_d$ = 4 [1/h], $k_r$ = 14 [days]
 
 
-    \subsection{Groundwater}
+
+%===============================================================
+% Groundwater case study
+%===============================================================
+\subsection{Groundwater} \label{gwcs}
 
 As mentioned in the literature ((Bennett et al. 1999; Vallabhaneni and Burgess 2007), (Barden et al. 2011), and others), infiltration into the sewer lines can be caused by the seasonal elevation of groundwater table or other condition that increased soil moisture content causing a temporary saturated zone. Elevation of the groundwater table around Jokela town was assessed in this section as an attempt to identify a possible correlation with seasonal variations of the water table and the flow measurements of the town’s sanitary sewer network. 
 Information of water table levels was provided by the Finnish Environmental Institute (SYKE) through its open data service (“Finnish Environment Institute (SYKE) Open Environmental Information Systems” n.d.). Data of three observation wells were available surrounding Jokela town as depicted in Figure 4. The recording period and routines among the three stations varies considerably - from one record per month to one record per year.

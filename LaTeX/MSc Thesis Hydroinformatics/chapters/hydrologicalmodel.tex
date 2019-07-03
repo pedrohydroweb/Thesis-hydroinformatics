@@ -42,11 +42,56 @@ As described in section X. Two main reasons was to model snowmelt was the primar
 
 The use of SWMM packages in this study aimed to model four processes happening simultaneously in the watershed to simulate fast, medium and long term response observed in \ac{SSN} wet-weather flows. The four processes/SWMM modules are described here as: 1. Runoff; 2. Snowpack \& Snowmelt; 3. Infiltration; 4. Groundwater. 
 
+%=======================================================================
+% RAINFALL-RUNOFF
+%=======================================================================
+
 \subsection{Rainfall-Runoff} 
+
+%=======================================================================
+% SNOWPACK AND SNOWMELT
+%=======================================================================
 
 \subsection{Snowpack \& Snowmelt} 
 
+Snowpack \& snowmelt module was used to simulate the variations of flows in the \acf{SSN} occurring during winter conditions since a considerable incremental quantity of infiltration occurs during snowmelt periods as showed on the available data of section \ref{flowdata}.
+
+Snowpack \& snowmelt calculation routines available in SWMM were based on models developed by \acf{NWS} \cite{anderson1973,anderson2006}. SWMM models the depth of water equivalent as the snowpack. The depth is increased during snow accumulation periods and decreased when snowmelt occurs. The amount of water released from the snowpack during snowmelt is transformed in precipitation rate (in/h) and summed to the rainfall as a "net precipitation" that is used to compute surface runoff. Therefore, snowmelt calculations are part of runoff module \cite{Rossman2016}.
+
+One of the key parameters for this routine is the base temperature $T_{base}$. This is the threshold temperature for snowmelt to occur. Difference between temperature of the snowpack and $T_{base}$ is named as "cold content" ($COLDC$) and is used to compute how much heat is necessary to be transfer to the pack before snowmelt occurs. The $COLDC$ value is updated every time step based on the heat transfer between the pack and the atmosphere. To compute the head exchange SWMM uses the input air temperature of the current time step ($T_a$), the $COLDC$ value, and the rate of which the transfer occurs. The latter is calculated also every time step based on antecedent temperature index ($ATI$). This index is function of $T_a$ and a user-supplied time weighting factor $TIPM$ ranging from 0 to 1.0. $TIPM$ values towards the lower limit represents a thicker pack which warms and cools slowly as a greater weight is given to more antecedent temperatures i.e. past week temperatures \cite{Rossman2016}. 
+
+accumulation ocurring during snowfall periods and snowmelt
+Snow accumulation:
+Snowmelt:
+A fraction of the pack is Free water holding capacity as fraction of the pack.  Melt occurs when the difference between \textit{cold content} after the  and  
+
+equation of snowpack
+
+equation of snowmelt for wet periods
+
+equation of snowmelt for dry periods
+
+
+
+Snow plowing routine was not utilized in this study for three reasons: 1. No data of snow plowing routines were assessed for the study area; 2. Assumption of no transport of snow among subcatchments; 3. Plowing of snow from impervious to pervious areas within the subcatchment assumed to be negligible since snowmelt can be routed to the pervious areas within SWMM's runoff module.
+
+
+
+
+- SNOTMP: Dividing temperature: 0-2C \cite{Rossman2016}
+- SCF: Snowcatch factor: 25-100\% 
+- RNM: Ratio of Negative melt coefficient to melt coefficient: 0.6
+
+
+
+
+%=======================================================================
+% INFILTRATION
+%=======================================================================
+
 \subsection{Infiltration} \label{infiltration}
+
+An infiltration model was used in this study to assess long-term simulations (up to 6 months) of the winter periods using snowmelt routine. As \acf{GWI} is one of the components of \acf{SSN} flows, an aquifer and groundwater inflow models were included. The gradient of groundwater infiltration to the \ac{SSN} is dependent on the water table elevation (see section \ref{groundwater}). Therefore, the infiltration routine was included as a way to recharge the modeled aquifer varying the saturated zone elevation (water table) providing a connection between effective precipitation and the \ac{GWI} component.
 
 SWMM version 5.1 package offers the modeller five different infiltration models. The Modified Horton method \cite{akan1992,akan2003} was chosen among the options for three main reasons: 1. it is simply one of the default methods available in SWMM;  2. it has the same parameters as the well-known Horton method which parameter estimates are suggested in \citet{Rossman2016}; 3. Appears to be more accurate low intensity rainfall events than the original Horton method \cite{Rossman2016}. 
 
@@ -111,9 +156,11 @@ Drying Time               & \multicolumn{2}{c}{2 - 14}                 & days   
 \end{table}
 
 
+%=======================================================================
+% AQUIFER AND GROUNDWATER
+%=======================================================================
 
-
-\subsection{Aquifer \& Groundwater Flow} 
+\subsection{Aquifer \& Groundwater Flow} \label{groundwater}
  
 choice of groundwater flow equation:
 
