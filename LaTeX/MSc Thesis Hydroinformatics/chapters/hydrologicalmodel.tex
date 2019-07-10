@@ -52,38 +52,101 @@ The use of SWMM packages in this study aimed to model four processes happening s
 % SNOWPACK AND SNOWMELT
 %=======================================================================
 
-\subsection{Snowpack \& Snowmelt} 
+\subsection{Snowpack \& Snowmelt} \label{snowlit}
 
 Snowpack \& snowmelt module was used to simulate the variations of flows in the \acf{SSN} occurring during winter conditions since a considerable incremental quantity of infiltration occurs during snowmelt periods as showed on the available data of section \ref{flowdata}.
 
-Snowpack \& snowmelt calculation routines available in SWMM were based on models developed by \acf{NWS} \cite{anderson1973,anderson2006}. SWMM models the depth of water equivalent as the snowpack. The depth is increased during snow accumulation periods and decreased when snowmelt occurs. The amount of water released from the snowpack during snowmelt is transformed in precipitation rate (in/h) and summed to the rainfall as a "net precipitation" that is used to compute surface runoff. Therefore, snowmelt calculations are part of runoff module \cite{Rossman2016}.
+Snowpack \& snowmelt calculation routines available in SWMM were based on models developed by \acf{NWS} \cite{anderson1973,anderson2006}. SWMM models the depth of water equivalent as the snowpack. The depth is increased during snow accumulation periods and decreased when snowmelt occurs. The amount of water released from the snowpack during snowmelt is transformed in precipitation rate [mm/h] and summed to the rainfall as "net precipitation" that is used as input to compute surface runoff. Therefore, snowmelt calculations are part of runoff module \cite{Rossman2016}.
 
-One of the key parameters for this routine is the base temperature $T_{base}$. This is the threshold temperature for snowmelt to occur. Difference between temperature of the snowpack and $T_{base}$ is named as "cold content" ($COLDC$) and is used to compute how much heat is necessary to be transfer to the pack before snowmelt occurs. The $COLDC$ value is updated every time step based on the heat transfer between the pack and the atmosphere. To compute the head exchange SWMM uses the input air temperature of the current time step ($T_a$), the $COLDC$ value, and the rate of which the transfer occurs. The latter is calculated also every time step based on antecedent temperature index ($ATI$). This index is function of $T_a$ and a user-supplied time weighting factor $TIPM$ ranging from 0 to 1.0. $TIPM$ values towards the lower limit represents a thicker pack which warms and cools slowly as a greater weight is given to more antecedent temperatures i.e. past week temperatures \cite{Rossman2016}. 
+Three of the key parameters for snowmelt routine are:
+\begin{enumerate}
+    \item $T_a$: air temperature of the current time step [C°]
+    \item $T_{base}$: The base temperature of which snowmelt starts to occur [C°]
+    \item $DHM$: melt coefficient [mm/h/C°]
+\end{enumerate}
 
-accumulation ocurring during snowfall periods and snowmelt
-Snow accumulation:
-Snowmelt:
-A fraction of the pack is Free water holding capacity as fraction of the pack.  Melt occurs when the difference between \textit{cold content} after the  and  
+These three parameters are used in the linear type equation \ref{eqn:smeltdry} to compute the snowmelt [mm/h] during dry periods. Calculations of snowmelt during wet periods (greater than 0.51 mm/h) take also in consideration the wind speed and local atmospheric pressure. Refer to \citet{anderson1973,anderson2006} or \citet{Rossman2016} for detailed description of snowmelt calculations during rainfall.
 
-equation of snowpack
+\begin{equation}
+\label{eqn:smeltdry}
+SMELT = DHM \cdot (T_a - T_{base}) 
+\end{equation}
 
-equation of snowmelt for wet periods
+Melt coefficient ($DHM$) varies seasonally and is calculated based on a sinusoidal equation and two user-supplied constants: 1. Minimum melt coefficient ($DHM_{min}$) which happens on December 21\textsuperscript{th}; 2. Maximum melt ($DHM_{max}$) happening on June 21\textsuperscript{th} as depicted in figure \ref{fig:meltcoeff}. 
 
-equation of snowmelt for dry periods
+\begin{figure}[h]
+    \centering
+	\includegraphics[scale=0.55]{figures/snowmelt_DHM.png}
+	\caption{Seasonal variation of melt coefficients \cite{Rossman2016}}
+	\label{fig:meltcoeff}
+\end{figure}
+
+ Before snowmelt occurs, the snowpack status has to be assessed. For this, there are two condition:
+ \begin{enumerate}
+    \item The snowpack has to be heated with air temperatures higher than $T_{base}$.
+    \item Snowmelt has to fill the voids within the snowpack. Meaning that there is a quantity of water contained in the snowpack and it is considered to be a fraction of the "depth of water equivalent" and named as fraction of free water capacity ($FWC$). 
+\end{enumerate}
+  
+The heat content in the pack is calculated and $FWC$ a user-supplied value. Therefore, liquid melt will only become a component of "net precipitation" after the two conditions, above mentioned, are satisfied.
+
+ The difference between heat content of the snowpack and $T_{base}$ is named as "cold content" ($COLDC$). This variable is used to compute how much heat is necessary to be transfered to the snowpack before snowmelt can occur, as the first condition metioned above. The $COLDC$ value is updated every time step based on the heat transfer between the pack and the atmosphere. The variation of the cold content ($\Delta CC$) is calculated every time step assuming a negative value during melting periods. The following two user-supplied constant fractions are necessary to compute $\Delta CC$:
+\begin{enumerate}
+    \item $RNM$: Negative melt ratio [fraction]
+    \item $TIPM$: ATI weight ratio [fraction]
+\end{enumerate}
+
+The rate of which heat transfer occurs is calculated based on SWMM's internal parameter of antecedent temperature index ($ATI$) which is function of $T_a$ and $TIPM$. Values of $TIPM$ towards tending to zero represent a thicker pack which warms and cools slowly as a greater weight is given to more antecedent temperatures. Equation \ref{eqn:ddcdry} is used when $T_a$ < $T_{base}$ and equation \ref{eqn:ddcwet} when $T_a$ > $T_{base}$ \cite{Rossman2016}. 
+
+\begin{equation}
+\label{eqn:ddcdry}
+\Delta CC = RNM \cdot DHM \cdot (ATI - T_a) \cdot Time Step
+\end{equation}
+
+\begin{equation}
+\label{eqn:ddcwet}
+\Delta CC = - SNOWMELT \cdot RNM \cdot Time Step
+\end{equation}
+
+The Negative Melt Ratio ($RNM$) in equations \ref{eqn:ddcdry} and \ref{eqn:ddcwet} is used to account for a reduced heat transfer during periods without "actual liquid melt".
+Snow plowing and areal depletion were not used in this study for lack of data and simplicity.
+Other three parameters used were:
+
+\begin{enumerate}
+    \item $U$: Monthly average wind speed [m/s]
+    \item $Z_{el}$: elevation above mean sea level [m]
+    \item $SNOTMP$: Dividing temperature between snowfall and rainfall [C°]
+    \item $SCF$: Snow catch factor [ratio]
+\end{enumerate}
+
+Where 1. and 2. were used to compute the influence of wind speed on the melting of snow during rainfall periods and 3. and 4. used to define the amount of snowfall from raw precipitation input data.
 
 
+%Snow plowing routine was not utilized in this study for three reasons: 1. No data of snow plowing routines were assessed for the study area; 2. Assumption of no transport of snow among subcatchments; 3. Plowing of snow from impervious to pervious areas within the subcatchment assumed to be negligible since snowmelt can be routed to the pervious areas within SWMM's runoff module.
 
-Snow plowing routine was not utilized in this study for three reasons: 1. No data of snow plowing routines were assessed for the study area; 2. Assumption of no transport of snow among subcatchments; 3. Plowing of snow from impervious to pervious areas within the subcatchment assumed to be negligible since snowmelt can be routed to the pervious areas within SWMM's runoff module.
-
-
-
-
-- SNOTMP: Dividing temperature: 0-2C \cite{Rossman2016}
-- SCF: Snowcatch factor: 25-100\% 
-- RNM: Ratio of Negative melt coefficient to melt coefficient: 0.6
+Table \ref{tbl:snowparam} depict all parameters used for the snowpack \& snowmelt module in this study and their proposed range based on other study cases available in the literature. 
 
 
+\begin{table}[h]
+\caption{Snowpack \& Snowmelt parameters range\cite{Rossman2016}}
+\label{tbl:snowparam}
+\centering
+\begin{tabular}{lcc}
+\toprule
+\textbf{Parameter}                                                                                                           & \textbf{Proposed Range}                      & \textbf{Units}                     \\ \hline
+SNOTMP                                                                                                                       & 0 - 2                                        & {[}°C{]}                           \\
+SCF                                                                                                                          & 1 - 2                                     & {[}1{]}                            \\
+T\textsubscript{base}                                                                                       & -4 - 0                                       & {[}°C{]}                           \\
+\begin{tabular}[c]{@{}l@{}}DHM\textsubscript{min - max} \end{tabular} & 0.019 - 0.11                                 & {[}mm/°C-h{]}                      \\
+RNM                                                                                                                          & 0 - 1                                        & {[}1{]}                            \\
+FWFRAC                                                                                                                       & 0.01 - 0.25                                   & {[}1{]}                            \\
+TIPM                                                                                                                         & 0 - 1                                        & {[}1{]}                            \\
+T\textsubscript{a}; Z\textsubscript{el}; $U$                                               & \multicolumn{2}{c}{Location Based (see section \ref{meteodata})}
+\end{tabular}
+\end{table}
 
+RNM and TIPM bare the full possible range. However, suggestions available in the literature were used as initial values in this study. All other ranges of parameters in \ref{tbl:snowparam}, exept by $DHM_{min - max}$, were proposed as suggested by \citeauthor{Rossman2016} \citeyearpar{Rossman2016} in the SWMM hydrology reference manual \cite{Rossman2016}.
+
+\citeauthor{Tikkanen2013} \citeyearpar{Tikkanen2013} suggested values for the degree-hour melt coefficients ($DHM_{min - max}$) when modelling a catchment in Finland based on values calibrated by \citeauthor{valeo2004} \citeyearpar{valeo2004} for a catchment in Calgari, Canada. \citeauthor{Tikkanen2013} used reduced values in comparison to \citeauthor{valeo2004} to account for fewer solar radiation due to difference in latitude. \citeauthor{valeo2004} calibrated different values of $DHM_{min - max}$ for snow covered pervious and impervious areas varying from 0.02 for $DHM_{min}$ to 0.150 $DHM_{max}$. Therefore, the proposed range in this study was based on \citeauthor{Tikkanen2013} and \citeauthor{valeo2004} findings.
 
 %=======================================================================
 % INFILTRATION
@@ -170,16 +233,4 @@ choice of groundwater flow equation:
 
 
 
-\section{Separation of Flow Components}
 
-•	SSOAP toolbox allows the users to visually adjust RTK parameters comparing the flow measured values and the RTK hydrograph through an iterative process \cite{Vallabhaneni2007}. Using such tool make the process easier for modelers. However, even with such tools, manual calibration can be time consuming. This can limit the frequency that calibrations are done. Optimization algorithm is applied as an attempt to mimic this iterative process done manually by modelers.
-
-SSOAP Toolbox developed by \ac{EPA} has tools to support the quantification and management of RDII in sanitary sewer networks. The RDII Analysis Tool available in the SSOAP Toolbox can identify and separate DWF and WWF, determine parameters for the set of Unit Hydrographs RTK, and perform statistical analysis of the parameters to non-measured catchments and design storms (Vallabhaneni and Burgess 2007). The SSOAP was used in this study to quantify RDII, other two relevant features for the choice were: 1. free and open source; 2. Interface with SWMM 5.
-
-
-\begin{figure}[ht]
-    \centering
-	\includegraphics[scale=1.2]{figures/SSOAP_example.png}
-	\caption{Graphical visualization of sanitary sewer flow components using SSOAP Toolbox}
-	\label{fig:SSOAPexample}
-\end{figure}
