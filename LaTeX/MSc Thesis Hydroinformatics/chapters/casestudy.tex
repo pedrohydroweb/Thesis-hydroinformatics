@@ -18,14 +18,17 @@ tell about all parameters estimated for SWMM physically based model and the para
 
 Explain that the preliminar sensitivity analysis of parameters will be explained in this chapter. 
 
+Tell which section contain parameter estimation for physically based and which has for RTK.
+
 %===============================================================
-% Sanitary Sewer Inflow and Groundwater data 
+% Sanitary Sewer Inflow Data
 %===============================================================
 
-    \subsection{Sanitary Sewer Flow and Groundwater Measurement Data} \label{flowdata}
+\subsection{Sanitary Sewer Flow Data} \label{flowdata}
     
+    tell about the data received, plot a graph and talk about the data treatment carried
     
-    \subsection{Separation of Flow Components}
+\subsubsection{Separation of Sanitary Sewer Flow Components}
 
 •	SSOAP toolbox allows the users to visually adjust RTK parameters comparing the flow measured values and the RTK hydrograph through an iterative process \cite{Vallabhaneni2007}. Using such tool make the process easier for modelers. However, even with such tools, manual calibration can be time consuming. This can limit the frequency that calibrations are done. Optimization algorithm is applied as an attempt to mimic this iterative process done manually by modelers.
 
@@ -39,7 +42,7 @@ SSOAP Toolbox developed by \ac{EPA} has tools to support the quantification and 
 	\label{fig:SSOAPexample}
 \end{figure}
 
-Dry Weather Flow Statistics for Meter Flow_Jokela_Smoothed
+Dry Weather Flow Statistics for Meter Flow-Jokela-Smoothed
 
 Flows are in LPS
 
@@ -80,26 +83,19 @@ WET WEATHER determ
 
 9 events defined
 
-Event #        Start Date           End Date
---------------------------------------------
-1          1.1.2018 0.00    1.21.2018 22.00
-2        1.21.2018 23.00    2.18.2018 22.00
-3         4.9.2018 20.00     5.26.2018 3.00
-4        6.21.2018 21.00    6.22.2018 16.00
-5          7.3.2018 0.00     7.4.2018 18.00
-6         7.4.2018 19.00     7.7.2018 10.00
-7        8.20.2018 18.00    8.21.2018 14.00
-8        9.11.2018 18.00     9.14.2018 0.00
-9         9.15.2018 8.00    9.19.2018 23.00
+% Event #        Start Date           End Date
+% --------------------------------------------
+% 1          1.1.2018 0.00    1.21.2018 22.00
+% 2        1.21.2018 23.00    2.18.2018 22.00
+% 3         4.9.2018 20.00     5.26.2018 3.00
+% 4        6.21.2018 21.00    6.22.2018 16.00
+% 5          7.3.2018 0.00     7.4.2018 18.00
+% 6         7.4.2018 19.00     7.7.2018 10.00
+% 7        8.20.2018 18.00    8.21.2018 14.00
+% 8        9.11.2018 18.00     9.14.2018 0.00
+% 9         9.15.2018 8.00    9.19.2018 23.00
 
 
-
-\begin{figure}[ht]
-    \centering
-	\includegraphics[scale=1.2]{figures/ssoap_wet_hydrograph.png}
-	\caption{Estimated Wet-weather Hydrograph from EPA SSOAP tool}
-	\label{fig:ssoapweth}
-\end{figure}    
 
 - holidays in Finland were not counted (total of 15 days)
 - dry days with no rainfall with a period of X
@@ -155,27 +151,43 @@ after smoothing
 Maximum Flow = 81.573 LPS @ 5.1.2018 10.00.00
 Minimum Flow = 1.701 LPS @ 12.8.2018 4.00.00
 Average Flow = 15.104 LPS
+
+
+
+
+
 %===============================================================
 % Meteorological data
 %===============================================================
 
+\subsection{Meteorological Data \& Parameters} \label{meteodata}
 
-    \subsection{Meteorological Data} \label{meteodata}
-    meteorological data is presented for both historical and forecast. 
-    TELL HERE GENERAL THINGS ABOUT THE DATA THAT ARE EQUAL TO ALL SUBSUBSECTIONS I.E. THE PROVIDER, FORECAST MODEL, ETC.
-        \subsubsection{Precipitation}
-        Give characteristics of the data here, graphics and etc
-        \subsubsection{Temperature}
-        Give characteristics of the data here, graphics and etc
-        One missing data that was filled using linear interpolation between the previous and next hour.
-        \subsubsection{Wind}
-        Give characteristics of the data here, graphics and etc
+meteorological data is presented for both historical and forecast. 
+TELL HERE GENERAL THINGS ABOUT THE DATA THAT ARE EQUAL TO ALL SUBSUBSECTIONS I.E. THE PROVIDER, FORECAST MODEL, ETC. 
 
-%===============================================================
-% Snow data and param estimation
-%===============================================================
+%   Precipitation data
+    
+\subsubsection{Precipitation}
+Give characteristics of the data here, graphics and etc
 
-\subsubsection{Snow Depth}
+%   Temperature data
+
+\subsubsection{Temperature}
+Give characteristics of the data here, graphics and etc
+One missing data that was filled using linear interpolation between the previous and next hour.
+
+%   Wind data
+
+\subsubsection{Wind}
+Give characteristics of the data here, graphics and etc
+
+
+%   Snow data and param estimation
+
+\subsubsection{Snow Depth \& Snowpack Parameters}
+
+
+TALK ABOUT DATA
 
 \begin{figure}[h]
     \centering
@@ -223,22 +235,88 @@ FW\textsubscript{0}                & 0                                          
 \end{table}
 
 %===============================================================
-% Topographic data
+%   Topographic data
 %===============================================================
         
-    \subsection{Topographic Data}
-    DEM
-    LAND USE
-    http://metatieto.ymparisto.fi:8080/geoportal/catalog/search/resource/details.page?uuid=%7B26EEEBBB-FB5C-4045-B6DF-439F9B7D5C46%7D
+
+\subsection{Topographic Data \& Parameters}
+
+Topographic data was assessed to estimate parameters used to model different flows happening in Jokela's catchment. The chart presented in figure X shows the relation among topographic data sets and the process being modeled. 
+
+insert figure
+
+Data description and initial parameter estimates are provided in the following sections. 
+
+% Runoff parameters
+\subsubsection{Terrain Data \& Runoff Parameters} \label{runoffcs}
     
-    example of table for mannings 
-    file:///C:/Users/PedroAlmeida/Documents/Thesis/References/An_Operational_Method_for_Flood_Directive_Implementation.pdf
+    
+    
+DEM AREA PARAMETER
+
+\texttt{\textit{Area}} is one of the parameters necessary for many SWMM modules as described in equations X, XXU,XX,XX, and table x x X of previous sections. The definition of the \texttt{\textit{Area}} parameter for \acf{SSN} is rather conceptually challenging since it is located under the surface. This is due the different components of \ac{WWF}: surface/direct flow or sub-surface/infiltration flow gradient and the area of influence of each of these two processes. Rain drop falling over a specific point on the surface. The drop can flow over the surface towards the direction of the steeper slope or infiltrate and then flow through the porous in the soil to a very different direction than . As 
+Therefore, delineating the sewershed only the \acf{DEM} rainfall-runoff
+
+The sewershed delineation is a discretization of the space domain. The area division that supplies water to to a specific point within the \ac{SSN}. When modeling natural rivers, this area is assumed as all regions where a rain drop would flow downstream following the soil surface slopes from high elevations towards the lowest parts due to gravitational force. This method, however, is not conceptually valid for \ac{SSN} once the network's slopes are not always as the terrain slopes. Therefore, \ac{SSN} has a different gradient than the surface in some parts and pumping stations are required to transport waste water towards the \acf{WWTP}. This is the reason why the space domain was discretized per pimping station in this study.
+
+
+Two reasons:
+- Terrain slope
+- Available historical flow measurements.
+
+Qgis application was chosen to perform GIS operations and delineate sewersheds due to its free open services. GRASS r.watershed. 
+
+
+Pumping stations are usually located in areas with lower surface elevation when compared to its upstream pipe network to direct the flow utilizing gravitational force and reduce energy consumption. However, differences between soil surface and network still exists in some parts of the pumping station upstream service area. 
+
+
+\begin{figure}[h]
+    \centering
+	\includegraphics[scale=0.6]{figures/burnedxfilledDEM.png}
+	\caption{Comparison of sewershed delineation using Filled and Burned DEM}
+	\label{fig:filledxburned}
+\end{figure}
+
+
+, not all parts of.
+The discretization in this study was DEM  Service area cadastral parcels.
+
+Tell other options based on the network age, size, estimated defects, material, etc. 
+
+
+Groundwater
+         
+DEM One of the first steps to model SWMMre are many ways to delineate a sewershed. The threshold level of discretization of the space domain. Each pipe section can have its own subcatchment 
+          
+          
+         \textit{GRASS - v.clean} to split where streams intersect.
+         \textit{QGIS - Merge Lines} To merge streams within the same layer. 
+         \textit{QGIS - Split with lines} to split the sewershed polygon where the stream crosses.    
+    
+    
+
+    
+    LAND USE
+    % http://metatieto.ymparisto.fi:8080/geoportal/catalog/search/resource/details.page?uuid=%7B26EEEBBB-FB5C-4045-B6DF-439F9B7D5C46%7D
+    
+    % example of table for mannings 
+    % file:///C:/Users/PedroAlmeida/Documents/Thesis/References/An_Operational_Method_for_Flood_Directive_Implementation.pdf
     
     URBAN AREA
-    IMPERVIOUSNESS
-    \subsubsection{Soil Superficial Deposits}
     
-    The soil type coverage data was fetched from \acf{GTK} \cite{gtkdata} through its open data online service and was used to estimate the three parameters of Horton infiltration (see, \ref{infiltration}). The available information was obtained as vector data containing superficial deposits of Finland with material produced between 1972-2007. GIS operations were carried using Qgis to delimit the area concerned Jokela's catchment. Coverage of superficial deposit is depicted in figure \ref{fig:supdeposits}. Mixed soil types were simplified to facilitate model's parameter estimations.\\
+    IMPERVIOUSNESS
+
+
+
+
+
+
+% Infiltration Parameters
+
+\subsubsection{Soil Superficial Deposits \& Infiltration Parameters}
+\label{infiltrationcs}
+    
+The soil type coverage data was fetched from \acf{GTK} \cite{gtkdata} through its open data online service and was used to estimate the three parameters of Horton infiltration (see, \ref{infiltration}). The available information was obtained as vector data containing superficial deposits of Finland with material produced between 1972-2007. GIS operations were carried using Qgis to delimit the area concerned Jokela's catchment. Coverage of superficial deposit is depicted in figure \ref{fig:supdeposits}. Mixed soil types were simplified to facilitate model's parameter estimations.\\
     
 \begin{figure}[h]
     \centering
@@ -302,9 +380,10 @@ after applying equation \ref{eqn:infilaverage} was applied to the estimated para
 
 
 %===============================================================
-% Groundwater case study
+%   Groundwater Data and Groundwater Flow Parameters
 %===============================================================
-\subsection{Groundwater} \label{gwcs}
+
+\subsection{Water Table \& Groundwater Flow Parameters} \label{gwcs}
 
 As mentioned in the literature ((Bennett et al. 1999; Vallabhaneni and Burgess 2007), (Barden et al. 2011), and others), infiltration into the sewer lines can be caused by the seasonal elevation of groundwater table or other condition that increased soil moisture content causing a temporary saturated zone. Elevation of the groundwater table around Jokela town was assessed in this section as an attempt to identify a possible correlation with seasonal variations of the water table and the flow measurements of the town’s sanitary sewer network. 
 Information of water table levels was provided by the Finnish Environmental Institute (SYKE) through its open data service (“Finnish Environment Institute (SYKE) Open Environmental Information Systems” n.d.). Data of three observation wells were available surrounding Jokela town as depicted in Figure 4. The recording period and routines among the three stations varies considerably - from one record per month to one record per year.
@@ -321,87 +400,91 @@ Picture
 
 The closest observation well with data available from 2018 was 110651. Measurements from 2018 were relevant to compare with flow measurements of the same year in the sewer network. As depicted in Figure 6, the groundwater elevation period is on average from February to May. Similar pattern as observed for station 0118651. For 2018, periods of February-March and April-May were presented elevation in the groundwater table. If a similar groundwater elevation pattern also occurred for Jokela town in 2018, located 9 km away, correlation between aquifer recharge periods and higher infiltration rates into the sanitary sewer exists. 
     
-    
-    \subsection{Weather Forecast}
 
-\section{Data Treatment}
-
-\section{Snowmelt and Rainfall for calibration and validation}
-
-
-
-remind: Importance to use radar data and refer the literature vallabhnai conclusions of using radar and pawel nawalani that compared radar x rain gauge. 
-
-remind: put a graph of variations in precipitation and temperature to justify that more data should be assessed. 
-
-
-\section{Jokela Sanitary Sewer Model}
-
-    \subsection{Hydraulic Model}
-    
-    \subsection{Physically-Based: SWMM Modules}
-
-
-        \subsubsection{Jokela Sewershed Delineation}
-
-\texttt{\textit{Area}} is one of the parameters necessary for many SWMM modules as described in equations X, XXU,XX,XX, and table x x X of previous sections. The definition of the \texttt{\textit{Area}} parameter for \acf{SSN} is rather conceptually challenging since it is located under the surface. This is due the different components of \ac{WWF}: surface/direct flow or sub-surface/infiltration flow gradient and the area of influence of each of these two processes. Rain drop falling over a specific point on the surface. The drop can flow over the surface towards the direction of the steeper slope or infiltrate and then flow through the porous in the soil to a very different direction than . As 
-Therefore, delineating the sewershed only the \acf{DEM} rainfall-runoff
-
-The sewershed delineation is a discretization of the space domain. The area division that supplies water to to a specific point within the \ac{SSN}. When modeling natural rivers, this area is assumed as all regions where a rain drop would flow downstream following the soil surface slopes from high elevations towards the lowest parts due to gravitational force. This method, however, is not conceptually valid for \ac{SSN} once the network's slopes are not always as the terrain slopes. Therefore, \ac{SSN} has a different gradient than the surface in some parts and pumping stations are required to transport waste water towards the \acf{WWTP}. This is the reason why the space domain was discretized per pimping station in this study.
-
-
-Two reasons:
-- Terrain slope
-- Available historical flow measurements.
-
-Qgis application was chosen to perform GIS operations and delineate sewersheds due to its free open services. GRASS r.watershed. 
-
-
-Pumping stations are usually located in areas with lower surface elevation when compared to its upstream pipe network to direct the flow utilizing gravitational force and reduce energy consumption. However, differences between soil surface and network still exists in some parts of the pumping station upstream service area. 
-
+For simplicity it was assumed that all subcatchments share an aquifer with the same characteristics, but with different groundwater infiltration capacity. Therefore, the estimation of parameters is divided here in two parts: 1. Aquifer Parameters and 2. Groundwater Flow Parameters. The choice for different groundwater infiltration parameters for each of the subcatchments was made as an attempt to investigate differences in groundwater infiltration quantity during calibration process. In other words, a higher rate of groundwater infiltration ($f_G$) in one of the subcatchments could suggest that there are more defects (i.e. pipe cracks) to its network and, therefore, could be candidate for further rehabilitation analysis.
 
 \begin{figure}[h]
     \centering
-	\includegraphics[scale=0.6]{figures/burnedxfilledDEM.png}
-	\caption{Comparison of sewershed delineation using Filled and Burned DEM}
-	\label{fig:filledxburned}
+	\includegraphics[scale=0.4]{figures/dfscheme.png}
+	\caption{Dupuit-Forcheimer lateral seepage to adjacent channel. Modified from} %\cite{bouwer1978}
+	\label{fig:dfscheme}
+\end{figure}
+
+Dupuit-Forcheimer Lateral Seepage equation (\ref{eqn:dfeq}) was chosen to calculate $f_G$. There was no indication that this choice was the best for the study area. The reasons why Dupuit-Forcheimer was chosen over the three examples described in in SWMM's hydrology reference manual \cite{Rossman2016} were:  1. Unlikely the linear reservoir method, all parameters of the equation could be estimated based on topographical data before calibration process; 2. Simpler than hooghoudt's method since the groundwater infiltration flow is evaluated only at one node. Dupuit-Forcheimer seepage scheme is depicted in figure \ref{fig:dfscheme}.
+
+
+
+\begin{equation}
+\label{eqn:dfeq}
+f_G = A_1 \cdot d^2_L - A3 \cdot d_L\cdot h_{sw}
+\end{equation}
+where: \\
+\indent $f_G$ = Flux from saturated zone to receiving node [m/s] \\
+\indent $A1$ = - $A3$ = $2K_s \cdot L^{-2}$ [s m]\textsuperscript{-1}\\
+\indent $K_s$ = $f_\infty$ = Saturated hydraulic conductivity [m/s]\\
+\indent $L$ = Distance between h1 and $h_{sw}$ [m]\\
+\indent $d_L$ = Saturated zone elevation [m]\\
+\indent $h_{sw}$ =  Elevation of water inside the receiving node with same reference as the other elevations [m]\\
+
+
+it was assumed that the water table elevation distribution is similar to the surface elevation spatial distribution to estimate $L$ parameter. This is a rough estimate since there is no indication that the water table elevation follows the surface elevation in the study area. For this, the location of highest surface elevation point per each subcatchment was found using available DEM data and Qgis raster calculator. This point was assumed to be h1 and its distribution is showed in figure \ref{fig:h1position}.
+
+\begin{figure}[h]
+    \centering
+	\includegraphics[scale=0.6]{figures/h2position.png}
+	\caption{Position of h2 for each subcatchment}
+	\label{fig:h1position}
 \end{figure}
 
 
-, not all parts of.
-The discretization in this study was DEM  Service area cadastral parcels.
+The distance between these two points were measured and assigned to $L$ for each subcatchment groundwater component. The saturated hydraulic conductivity ($K_s$) was assumed to be constant for all subcatchments and its value was estimated in section \ref{infiltrationcs}. $d_L$ is computed every time step of the simulation, but its initial value ($d_{L0}$) is required and it was set as the bottom elevation of each receiving node ($h_B$) as depicted in table \ref{tbl:gwparamest}. The aquifer bottom elevation used as reference for all the other elevations was also set as $h_B$ since no information of the impermeable zone was assessed. $h_{sw}$ value is obtained from hydraulic model flow routing as the wastewater depth plus $h_B$.
 
-Tell other options based on the network age, size, estimated defects, material, etc. 
+\begin{table}[h]
+\caption{Groundwater parameter estimation}
+\label{tbl:gwparamest}
+\centering
+\begin{tabular}{cccc}
+\toprule
+\multicolumn{1}{l}{\textbf{Subcatchment}} & \textbf{h\textsubscript{B} {[}m{]}} & \textbf{L {[}m{]}} & \textbf{A1  {[}s.m{]}\textsuperscript{-1}} \\ \hline
+41                                        & 75.25                 & 1108               & 4.3E-05                                    \\
+42                                        & 66.17                 & 2026               & 1.3E-05                                    \\
+43                                        & 60.04                 & 2040               & 1.3E-05                                    \\
+44                                        & 62.22                 & 1397               & 2.7E-05                                    \\
+45                                        & 58.09                 & 1324               & 3.0E-05                                    \\
+46                                        & 52.2                  & 1797               & 1.6E-05                                    \\
+47                                        & 64.2                  & 1319               & 3.0E-05                                   \\
+\bottomrule
+\end{tabular}
+\end{table}
+ 
+Calibration of $L$ parameter may apply as h1 were located, as expected, at the borders of the subcatchments with the rough estimation described above. It is likely that h1 is located further than it is in reality. The calibration should then move towards decreasing the value of $L$. This decrease would result on an increase for $A1$ values resulting on an increase in the infiltration rate. A flow rate not greater than the observed is expected when using the initial values as suggested in table \ref{tbl:gwparamest} assuming a constant saturated hydraulic conductivity ($K_s$). Therefore, $f_G$ is likely closer to its lower limit range and calibration efforts should focus on increasing $f_G$ by decreasing $L$. 
+
+First simulation was carried with the values presented on \ref{tbl:gwparamest}.The groundwater table ($d_L$) and groundwater infiltration to one of the receiving nodes are plotted in figure \ref{fig:gw1stsim}. 
 
 
-Groundwater
-         
-DEM One of the first steps to model SWMMre are many ways to delineate a sewershed. The threshold level of discretization of the space domain. Each pipe section can have its own subcatchment 
-          
-          
-         \textit{GRASS - v.clean} to split where streams intersect.
-         \textit{QGIS - Merge Lines} To merge streams within the same layer. 
-         \textit{QGIS - Split with lines} to split the sewershed polygon where the stream crosses.
-        
-        
-        \subsubsection{Parameter Estimation}
+
+ 
+% Forecs werelocati calconast data
+\subsection{Weather Forecast}
+which data used, who provided, why was it used for
+
+\section{Jokela Sanitary Sewer Model}
+tell about the two different models
+mention more details on the hydraulic model and reference section above
     
-    range of parameters are presented in each subsection of \ref{hydraulicmodel} chapter. 
-    
-    table \ref has the choice of parameters for all modules. The column \textit{Source} shows the references used to estimate the parameter as well as description of the data in previous section \ref{data}.
-    
-    Table
-    
+    \subsection{Physically-Based: SWMM Modules}
+
+Show picture of the model, tell about all the modules used and a table with all parameters estimated
+
     \subsection{Synthetic Unit Hydrograph: RTK}
-        
-        \subsubsection{Parameter Estimation}
-
+picture with hydrographs of each pumping station, tell maybe a bit more of the connection between parameter estimation and the model and the connection with hydroulic model
 
 
 %===============================================================
-% SIMULATIONS
+% Simulations
 %===============================================================
 
 \section{Simulations}
 
+talk about the simulations done and the method for comparing the results (nash suttclife or RMSE, etc). 
 

@@ -31,16 +31,24 @@ Rainfall dependent infiltration and inflow have been modeled with different meth
 The study concluded that only the regression and unit hydrograph methods are suitable when applying continuous simulation for long-term modelling. The unit hydrograph (UH) method also provided the best consistent match to storm peaks. Vallabhaneni and Burguess (2007) (Vallabhaneni and Burgess 2007) and U.S. EPA (2008) (Epa et al. n.d.) also considered sewer network rehabilitation capabilities as a factor for evaluation of the methods and suggested that regression should be used when more than 2 years of recorded flow and rainfall data is available. When no flow is available, the Constant Unit Rate RDII Method seems to be useful since it accounts for spatial characteristics of the Sewershed and information of pipe characteristics and population. Moreover, U.S. EPA (2008) study concluded that Unit Hydrograph RTK method can be useful to identify if which portion of the wet-weather flow is caused by inflow and which portion is caused by infiltration. Knowing whether RDII is more impacted by inflow or infiltration is relevant when evaluating the sanitary sewer network for rehabilitation. 
 It is important to mention that the studies also concluded that there is no RDII quantification method that can be universally applied, since their use depend on available data and characteristics of the catchment. The goal of Vallabhaneni and Burguess (2007) (Vallabhaneni and Burgess 2007) and U.S. EPA (2008) (Epa et al. n.d.) reviews were to choose the most suitable method to be first implemented in a toolbox named as Sanitary Sewer Overflow Analysis and Planning (SSOAP). 
 
-
-
+%maybe include the table available in benetti or whatever for visual representation. 
+%Conclude about the alternative methods described above. 
 
 TELL HERE WHY THE CHOICE OF RDII AND SWMM
 
 As described in section X. Two main reasons was to model snowmelt was the primary motivation to use SWMM modules and subcatchments in this study. and a model that could simulate the watershed behaviour throuout all the seasons of the year. 
 
+%Tell that physically based model could also be achieved with other tools (mention the studies for snowmelt and groundwater)
+snow = \citet{muthanna2015}
+Groundwater =\citet{Robinson2015}, \citet{Moore2017}
+
+%=======================================================================
+% SWMM MODULES
+%=======================================================================
+
 \section{Physically-Based: SWMM Modules}
 
-The use of SWMM packages in this study aimed to model four processes happening simultaneously in the watershed to simulate fast, medium and long term response observed in \ac{SSN} wet-weather flows. The four processes/SWMM modules are described here as: 1. Runoff; 2. Snowpack \& Snowmelt; 3. Infiltration; 4. Groundwater. 
+The use of SWMM packages in this study aimed to model four processes happening simultaneously in the watershed to simulate fast, medium and long term response observed in \ac{SSN} wet-weather flows. The four processes/SWMM modules are described here as: 1. Runoff; 2. Snowpack \& Snowmelt; 3. Infiltration; 4. Groundwater. A summary of the four modules is presented on the following sections based on \citet{Rossman2016}. 
 
 %=======================================================================
 % RAINFALL-RUNOFF
@@ -48,6 +56,54 @@ The use of SWMM packages in this study aimed to model four processes happening s
 
 \subsection{Rainfall-Runoff} 
 
+The area in SWMM is discretized by subcatchments. The size of each subcatchment is dependent on the purpose of the model. See section \ref{} for further discussion on subcatchment delineation for this study.
+The rainfall-runoff is computed in SWMM for each one of the subcatchments using a nonlinear reservoir model as depicted in figure \ref{fig:runoffreservoir} and expressed in \ref{eqn:reservoircontinuity} \cite{Rossman2016}. 
+
+\begin{figure}[ht]
+    \centering
+	\includegraphics[scale=0.4]{figures/runoffreservoir.png}
+	\caption{Nonlinear reservoir model \cite{Rossman2016}}
+	\label{fig:runoffreservoir}
+\end{figure}
+
+\begin{equation}
+\label{eqn:reservoircontinuity}
+\frac{\partial d}{\partial t} = i - e - f - q
+\end{equation}
+
+Where:\\
+i = precipitation rate [m/s]\\
+e = surface evaporation rate [m/s]\\
+f = infiltration rate [m/s]\\
+q = runoff rate [m/s]\\
+
+Runoff happens when water exceeds the depression storage ($D_s$) and the overland flow is assumed as uniform in a rectangular channel expressed by Gauckler–Manning–Strickler formula (\ref{eqn:manningeqn}). Each subcatchment in SWMM can be divided in three portions: 1. Pervious; 2. Impervious; 3. Impervious without $D_s$.
+
+\begin{equation}
+\label{eqn:manningeqn}
+q =  \frac{1.49 \cdot W \cdot S^{1/2}}{A \cdot n} \cdot (d - d_s)^{5/3} 
+\end{equation}
+Where: \\
+A = area [m²]\\
+W = Flow width [m]\\
+S = Slope [1]\\
+n = Manning's roughness coefficient [s/m\textsuperscript{1/3}] \\
+
+Runoff can be divided and routed to three different areas: 1. Outlet (node within the pipe network); 2. Pervious or impervious portion of the subcatchment; 3. Other subcatchment. The modeller can input a percent of runoff routed ($\%_{routed}$) as a parameter for SWMM model.
+
+No information of \acf{SWSN} was assessed in this study. Therefore, the amout of stormwater that finds its way into the \ac{SWSN} is treated as a loss (see figure \ref{fig:losses}). It was also assumed that the fast response on sanitary sewer wet-weather hydrograph follows the same pattern as surface runoff. However, with a reduction in its volume. One can imagine that the hydrograph coming from a subcatchment entering the \ac{SWSN} will have the same shape as the "short term hydrograph" entering the \acf{SSN}, but with greater volume. 
+
+The volume of water from precipitation lost to the \ac{SWSN} can be represented by two existent parameters in SWMM model: 1. depression storage ($D_s$); and/or 2. percent routed ($\%_{routed}$). Therefore, the values chosen for these two parameters in this study may differ greatly from other SWMM models focused more on modeling \ac{SWSN}. Figure \ref{fig:runoffreservoirmod} represents the conceptual difference considered in this study in comparison with the original nonlinear reservoir model.
+
+
+\begin{figure}[ht]
+    \centering
+	\includegraphics[scale=0.5]{figures/runoffreservoirmod.png}
+	\caption{Extra $D_s$ and $\%_{routed}$ for Nonlinear reservoir model. Modified from \citet{Rossman2016}}
+	\label{fig:runoffreservoirmod}
+\end{figure}
+
+$D_s$ accounts for the amount of water "absorbed" by the watershed from precipitation before runoff occurs. Wetting and ponding of the surface, and interception are usually the losses modeled by this parameter. The $D_s Extra$ and $\%_{routed}$ represented in figure \ref{fig:runoffreservoirmod} are the increment value for $D_s$ and $\%_{routed}$  to represent losses to \ac{SWSN} system. The parameter estimation is discussed later in section \ref{runoffcs}.
 %=======================================================================
 % SNOWPACK AND SNOWMELT
 %=======================================================================
@@ -225,7 +281,19 @@ Drying Time               & \multicolumn{2}{c}{2 - 14}                 & days   
 
 \subsection{Aquifer \& Groundwater Flow} \label{groundwater}
  
-choice of groundwater flow equation:
+There are medium and long term wet-weather infiltration observed in \acf{SSN} measured flow data. This infiltration raises the flow above its average for days or even weeks as discussed in the previous sections. It is challenging or not possible to model the short, medium and long term hydrographs using only SWMM's runoff module since its parameters such as roughness and slope would be distorted as an attempt to reproduce the delayed flows. Moreover, a short term response can occur at the same period as the medium and long term. One can imagine a high intensity rainfall happening right after a snowmelt period. A delayed portion of snowmelt infiltrates and slowly recharges the aquifer and discharges into the \ac{SSN} while rainfall causes runoff being fully discharged in minutes or hours. The Aquifer \& Groundwater Flow module of SWMM was implemented together with the aforementioned modules as an attempt to represent the most important hydrological processes happening in the sewershed. 
+Aquifer in SWMM is represented as a two zones model containing an unsaturated and a saturated zone as depicted in figure \ref{fig:gwtwozoneslit}. 
+
+\begin{figure}[h]
+    \centering
+	\includegraphics[scale=0.45]{figures/gwtwozoneslit.png}
+	\caption{Representation of two-zone groundwater model in SWMM \cite{Rossman2016}}
+	\label{fig:gwtwozoneslit}
+\end{figure}
+
+The first zone is intermediary located between the soil surface and the groundwater table. Six fluxes among soil surface and the two aquifer zones can be computed every time step varying the elevation of the groundwater table and, therefore, changing the size of the aquifer zones. The variation of the saturated zone elevation ($d_L$) affects the flow from the aquifer to the receiving node in the pipe network system ($f_G$). 
+
+Modellers can use a customized equation to describe $f_G$ flux using available parameters from the two-zone model. SWMM's hydrology reference manual \cite{Rossman2016} mentions options such as Linear Reservoir, Dupuit-Forcheimer Lateral Seepage, and Hooghoudt's Tile Drainage. However, it is important to remember that groundwater table elevation is constant along the subcatchment limiting the representation of the pressure gradient between the saturated zone and the receiving node to the difference between $d_L$ and the elevation of water surface in the receiving node. Note that these two elevations can vary every time step and govern changes in $f_G$.
 
 
 \section{Synthetic Unit Hydrograph: RTK}
