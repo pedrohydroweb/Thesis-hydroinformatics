@@ -1,6 +1,6 @@
 \chapter{Methodology}
 
-To tackle the issues presented in the previous section, this study will investigate the main aspects behind the development of a model with the aim to approximate the behavior of the sanitary sewer network flows continuously. The model should be able to cope with existing monitoring infrastructure of \acf{SCADA} and use this information and weather forecast data as input to predict the future status of the network. It is important to consider the purpose of the model since the beginning once it influences the decisions of methods to be used. Thus, the development of the model will, since the beginning, acknowledge the following:
+To tackle the issues presented in the previous section, this study will investigate the main aspects behind the development of two hydraulic models with the aim to approximate the behavior of the sanitary sewer network flows continuously in a cold climate influenced by annual snowmelt periods. In the future, the model should be able to cope with existing monitoring infrastructure of \acf{SCADA} and weather forecast data as input to predict the future status of the network. Even though this study does not go as far as description of real implementation of an integrated operational and CSOs/SSOs early warning system, it focuses the development and data acquisition of the hydrological models in real-time operation. It is important to keep in mind the purpose of the model since it influenced decisions of methods to be used and data fetching routines. Thus, key aspects of this study involves:
 \begin{itemize}
     \item fetching of real-time monitoring data;
     \item automatic calibration \& validation;
@@ -9,11 +9,11 @@ To tackle the issues presented in the previous section, this study will investig
     \item 24h forecast: possible overflows, capacities, etc.
 \end{itemize}
 
-There is current one town to be used as study site. The town of Jokela, in Tuusula municipality, is in the southern region of Finland. A larger urban area of Turku city, in southwest coast of Finland, might also be used as case study. More about Jokela area is discussed on section . The hydraulic model for Jokela region was already built and provided by Tuusula Water Works for this study. 
-Methodology proposed to build the model is to first create an offline model with historical events and an online model as a continuous simulation. 
+There is an existent hydraulic model of the study site. Therefore, details about this model are briefly presented later in section \ref{hydraulicmodel}.
+Focus is given here to the hydrological model and the methodology was divided in two parts named: 1. Offline Model and 2. Online Model. The first aimed to investigate the model's data necessities, the process of parameter estimation based on spatial data of the study site, and first simulation with previously estimated parameters. The Online Model uses not only historical meteorological events, but also weather forecast for comparing the two proposed hydraulic models results and a preliminary analysis of their performance for real-time applications. 
 
 \section{Offline Model}
-First step will be the creation of hydrological model and coupling to hydraulic model using \acf{SWMM} developed by the \acf{EPA}. The model will be built, calibrated and validated using historical data. The goal is to identify the best set of parameters and how to handle challenging parts such as: initial soil moisture content, soil frost, percentage of rainfall lost to stormwater sewer network. Figure \ref{fig:offlineflow} shows a very simplified flowchart of the hydrological model development steps.
+First step was the creation of hydrological model and coupling to hydraulic model using \acf{SWMM} developed by the \acf{EPA}. The model was built, calibrated and validated using historical data. The goal of the offline model part was to identify the best set of parameters and how to handle challenging parts such as: initial soil moisture content, soil frost, percentage of rainfall lost to stormwater sewer network, aquifer interations, etc. Figure \ref{fig:offlineflow} shows a simplified flowchart of the hydrological model development steps.
 
 
 \begin{figure}[h]
@@ -26,6 +26,10 @@ First step will be the creation of hydrological model and coupling to hydraulic 
 
 
 \section{Online Model}
+
+[To Do]
+
+\textbf{This section will aim to answer the questions posed below} \\ \\
 
 This section presents questions related to the continuous simulation process. The answers express initial ideas to explain how the continuous simulation will work and what are the main concerns. 
 •	How long will the simulations run? This depends on many factors such as the type of hydrological, hydraulic model, calibration process, routine, hardware used to process the information. 

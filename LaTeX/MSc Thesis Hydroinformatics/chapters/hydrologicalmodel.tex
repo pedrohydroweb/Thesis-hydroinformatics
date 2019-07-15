@@ -2,7 +2,7 @@
 
 
 
-Flow in the sanitary sewer network can be classified as Dry-Weather Flow (DWF) and Wet-Weather Flow (WWF). DWF can be further divided in two components: 1. Base Waste Flow (BWF): inflow of waste water coming from households, commercial and industrial sites; and 2. Groundwater Infiltration (GWI): Water from aquifers that infiltrates into the network thought defects such as pipe cracks and leaky joints(Vallabhaneni and Burgess 2007). 
+Flow in the sanitary sewer network can be classified as Dry-Weather Flow (DWF) and Wet-Weather Flow (WWF). DWF can be further divided in two components: 1. Base Waste Flow (BWF): inflow of waste water coming from households, commercial and industrial sites; and 2. Groundwater Infiltration (GWI): Water from aquifers that infiltrates into the network thought defects such as pipe cracks and leaky joints (\cite{Vallabhaneni2007}). 
 The choice of the hydrological model in this study aims the representation of RDII, which is the incremental flow into the sanitary sewer system caused by precipitation (rainfall or snowmelt). Figure 3 shows the typical characteristics of different components of sanitary sewer flow. RDII needs to be first separated from DWF when processing raw data coming from flow meters. More about the methods to separate the components are discussed on section 4.2.
 
 
@@ -14,6 +14,37 @@ The choice of the hydrological model in this study aims the representation of RD
 \end{figure}
 
 
+
+
+As mentioned on section \ref{intro}. There are different ways stormwater or snowmelt finds its way into the sanitary sewer lines which ideally would have only wastewater from urban developments such as households, commercial centers, factories, etc.  Sanitary sewer network flow increase can be trigged by an event such as a storm, snowmelt or increase of soil moisture content. From rainfall or snowmelt water flows over the soil surface and inflows to the sanitary sewer through manhole leaky covers or directly from roof-drain and foundation connections. This extra amount of wastewater inflow is generally observed few hours after the beginning of the storm up to days after a period with intense snowmelt. \cite{Rossman2016}. The flow above the customary values observed as a long-term effect (days or weeks) can be explained by the features of subsurface flow. Once the water infiltrates, it moves through the soil porous with a much slower velocity due to the characteristics of the groundwater flow before entering the network system through its defects. 
+
+
+\section{Methods to Quantify Rainfall Dependent Infiltration and Inflow}
+\label{methods_rdii}
+
+Rainfall dependent infiltration and inflow have been modeled with different methods. Bennet et al. [1999] \cite{Bennett1999} carried a literature review and case study of around 10 different methods for quantifying RDII. 
+The study concluded that only the regression and unit hydrograph methods are suitable when applying continuous simulation for long-term modelling. However, a physically-based method was not assessed. The unit hydrograph (UH) method also provided the best consistent match to storm peaks among the benchmarket methods. Vallabhaneni and Burguess [2007] \cite{Vallabhaneni2007} and U.S. EPA [2008] \cite{epa2008}  also considered sewer network rehabilitation capabilities as a factor for evaluation of the methods and suggested that regression should be used when at least more than 2 years of recorded flow and rainfall data is available. When no flow is available, the Constant Unit Rate RDII Method seems to be useful since it accounts for spatial characteristics (topographical data) of the Sewershed, information of pipe characteristics and population. Moreover, U.S. EPA [2008] study concluded that Unit Hydrograph RTK method can be useful to identify which portion of the wet-weather flow is caused by direct inflow and which portion is caused by infiltration. Knowing whether RDII is more impacted by inflow or infiltration is relevant when evaluating the sanitary sewer network for rehabilitation. 
+It is important to mention that the studies also concluded that there is no RDII quantification method that can be universally applied, since their use depend on available data and characteristics of the catchment. The goal of Vallabhaneni and Burguess [2007] and U.S. EPA [2008] reviews were to choose the most suitable method to be first implemented in a toolbox named as Sanitary Sewer Overflow Analysis and Planning (SSOAP) that is later discussed. 
+
+%maybe include the table available in benetti or whatever for visual representation. 
+%Conclude about the alternative methods described above. 
+
+Examples of Empirical models such as multiple linear regression (\citet{Li2019}), Artificial Neural Networks (ANN) (\citet{Djebbar1998},\citet{Walker2014}) and RTK unit hydrographs (\citet{Muleta2008},\citet{Gheith2011}) which is perhaps the most commonly used method, were published with different advantages and limitations.
+
+Physically based models have also been used to model sanitary sewer flows. \citet{Robinson2015} modelled groundwater infiltration into \ac{SSN} using SWMM5 and two aquifer approach to investigate rehabilitation method of urban catchment in Seattle, USA. \cite{Apul2016} used SWMM5 rainfall-runoff module to study the impacts of climate change to combined sewer overflows (CSOs) in Toledo, Ohio, USA. \cite{choi2016} phD dissertation thesis compared the use of three physically-based models: 1. roof downspout; 2. Sump pump, and 3. leaky lateral with RTK unit hydrograph method. Even though there are studies available in the literature using phisycally based models applied to sanitary sewer flows, it seems to be easier to find cases where process are analyzed separated and few include also snowmelt models to the processes. 
+
+Therefore, a comparison of a physically based model and empirical model as hydrological inputs to the sanitary sewer hydraulic model was proposed in this study. SWMM 5 was chosen and the two available routines (SWMM physically based modules and RTK Unit Hydrographs) used to perform comparisons. 
+
+SWMM 5 was chosen for this study for three main reasons:
+\begin{enumerate}
+    \item It includes snowpack and snowmelt model, infiltration, runoff and aquifer \& groundwater flow, and RTK Unit Hydrograph;
+    \item Free open source package;
+    \item Well documented user manuals and several published case studies.
+    \item Existent hydraulic model.
+\end{enumerate}
+
+The approach chosen focus on the flows in the \acf{SSN} without further information of the \acf{SWSN} or any Stormwater Harvesting System. These artificial units are treated as losses as depicted in figure \ref{fig:losses}.
+
 \begin{figure}[ht]
     \centering
 	\includegraphics[scale=0.4]{figures/losses.png}
@@ -21,26 +52,13 @@ The choice of the hydrological model in this study aims the representation of RD
 	\label{fig:losses}
 \end{figure}
 
-\section{Methods to Quantify Rainfall Dependent Infiltration and Inflow}
 
 
-As mentioned on section 1. There are different ways stormwater or snowmelt finds its way into the sanitary sewer lines which ideally would have only wastewater from urban developments such as households, commercial centers, factories, etc.  Sanitary sewer networks’ flow increase can be trigged by an event such as a storm or elevation of the groundwater table. From rainfall or snowmelt water flows over the soil surface and inflows to the sanitary sewer through manhole leaky covers or directly from roof-drain and foundation connections. The flow increases in the sanitary sewer due to inflow is generally observed few hours after the beginning of the storm or snowmelt. As depicted in figure X, rainfall or snowmelt   Once the water infiltrates, it moves through the soil porous with a much slower velocity due to the characteristics of the groundwater flow. Infiltration of groundwater flow which reaches the elevation of pipe. Direct roof drain connections. Groundwater infiltration from saturated soil.   
-There are many processes where. Function of the infiltration, groundwater flow, surface runoff, flow through pipe fissures.
-
-Rainfall dependent infiltration and inflow have been modeled with different methods. Bennet (1999) (Bennett et al. 1999) carried a literature review and case study of around 10 different methods for quantifying RDII. 
-The study concluded that only the regression and unit hydrograph methods are suitable when applying continuous simulation for long-term modelling. The unit hydrograph (UH) method also provided the best consistent match to storm peaks. Vallabhaneni and Burguess (2007) (Vallabhaneni and Burgess 2007) and U.S. EPA (2008) (Epa et al. n.d.) also considered sewer network rehabilitation capabilities as a factor for evaluation of the methods and suggested that regression should be used when more than 2 years of recorded flow and rainfall data is available. When no flow is available, the Constant Unit Rate RDII Method seems to be useful since it accounts for spatial characteristics of the Sewershed and information of pipe characteristics and population. Moreover, U.S. EPA (2008) study concluded that Unit Hydrograph RTK method can be useful to identify if which portion of the wet-weather flow is caused by inflow and which portion is caused by infiltration. Knowing whether RDII is more impacted by inflow or infiltration is relevant when evaluating the sanitary sewer network for rehabilitation. 
-It is important to mention that the studies also concluded that there is no RDII quantification method that can be universally applied, since their use depend on available data and characteristics of the catchment. The goal of Vallabhaneni and Burguess (2007) (Vallabhaneni and Burgess 2007) and U.S. EPA (2008) (Epa et al. n.d.) reviews were to choose the most suitable method to be first implemented in a toolbox named as Sanitary Sewer Overflow Analysis and Planning (SSOAP). 
-
-%maybe include the table available in benetti or whatever for visual representation. 
-%Conclude about the alternative methods described above. 
-
-TELL HERE WHY THE CHOICE OF RDII AND SWMM
-
-As described in section X. Two main reasons was to model snowmelt was the primary motivation to use SWMM modules and subcatchments in this study. and a model that could simulate the watershed behaviour throuout all the seasons of the year. 
 
 %Tell that physically based model could also be achieved with other tools (mention the studies for snowmelt and groundwater)
-snow = \citet{muthanna2015}
-Groundwater =\citet{Robinson2015}, \citet{Moore2017}
+
+/% snow = \citet{muthanna2015}
+/% Groundwater =\citet{Robinson2015}, \citet{Moore2017}
 
 %=======================================================================
 % SWMM MODULES
@@ -54,7 +72,7 @@ The use of SWMM packages in this study aimed to model four processes happening s
 % RAINFALL-RUNOFF
 %=======================================================================
 
-\subsection{Rainfall-Runoff} 
+\subsection{Rainfall-Runoff} \label{runofflit}
 
 The area in SWMM is discretized by subcatchments. The size of each subcatchment is dependent on the purpose of the model. See section \ref{} for further discussion on subcatchment delineation for this study.
 The rainfall-runoff is computed in SWMM for each one of the subcatchments using a nonlinear reservoir model as depicted in figure \ref{fig:runoffreservoir} and expressed in \ref{eqn:reservoircontinuity} \cite{Rossman2016}. 
@@ -297,6 +315,19 @@ Modellers can use a customized equation to describe $f_G$ flux using available p
 
 
 \section{Synthetic Unit Hydrograph: RTK}
+
+Flows are higher than average into the sanitary or combined sewer network during and after a storm. This incremental quantity of stormwater inflows into the network from roof drain connections, foundation connections, leaky manhole covers, etc. \cite{Rossman2016} The inflow causes a relatively high peak discharges in the network in a short term, usually while the storm is happening. A bit less intuitively, flows and depths remain higher than average in the network after the rainfall event ranging from hours to even weeks \cite{Mosley2001}. This long term is caused by Infiltration of stormwater that enters the network system through defects such as damage pipes and joints \cite{Rossman2016}. Stormwater infiltrates the network after percolating through the soil. Groundwater also infiltrates into the network due to water table elevation caused by wet periods.
+
+To simulate the inflow \& infiltration caused by a rainfall event, SWMM incorporates the synthetic unit hydrograph RTK method. This unit hydrograph was first created to simulate RDII, therefore it accounts for the short, medium- and long-term effects. This model creates three triangular unit hydrographs, one for each term. Unit Hydrographs are then summed to create a final unit hydrograph that simulates the overall response of the system as shown in figure \ref{fig:rtkhydrographs}. The letters R-T-K refers to the parameters used to create the triangular hydrographs and are, respectively, fraction of precipitation that enters the network (area below hydrograph), time to peak, and recession time.
+
+\begin{figure}[h]
+    \centering
+	\includegraphics[scale=0.45]{figures/rtk_hydrographs.png}
+	\caption{RTK Short, Medium, Long-term and Resulting Hydrographs \cite{Vallabhaneni2007}}
+	\label{fig:rtkhydrographs}
+\end{figure}
+
+
 
 
 
