@@ -1,6 +1,6 @@
 # Thesis-hydroinformatics
 
-Final thesis report in pdf: Thesis_report
+Final thesis report: Thesis_report.pdf
 
 
 Python scripts used available on the Appendix folder
