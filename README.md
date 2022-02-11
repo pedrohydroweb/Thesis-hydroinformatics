@@ -1,4 +1,4 @@
-# Thesis-hydroinformatics
+# Urban sanitary sewer modelling in cold climates
 
 Final thesis report: Thesis_report.pdf
 
